@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{   
+    #region Variables
+    #endregion
+    
+    #region Private/Helper Functions
+    #endregion
+    
+    #region Public Functions
+    #endregion
+    
+    #region EventListeners
+    #endregion
+    
+    #region UnityLifeCycle
+    
+    private void OnEnable()
+    {
+        #NOTRIM#
+    }
+    
+    private void Start()
+    {
+        #NOTRIM#
+    }
+
+    private void Update()
+    {
+        #NOTRIM#
+    }
+    
+    private void OnDisable()
+    {
+        #NOTRIM#
+    }
+        
+    #endregion
+}
+#ROOTNAMESPACEEND#
