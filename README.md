@@ -1,5 +1,5 @@
 # Dungeon-Survivor
-Game Submission for [MindStorm's Winter Game Jam'23](https://labs.mindstormstudios.com/winter-game-jam-2023/) ❄️🕹
+Game Submission for [MindStorm's Winter Game Jam'23](https://labs.mindstormstudios.com/winter-game-jam-2023/) ❄️🕹 from Team **_DiscoOverload_** ✨
 
 # Guidelines
 
