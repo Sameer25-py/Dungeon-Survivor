@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DungeonSurvivor.Core.Puzzles;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace DungeonSurvivor.Core.Events
@@ -12,7 +13,10 @@ namespace DungeonSurvivor.Core.Events
 
         public static class Puzzles
         {
-            public static readonly UnityEvent<int> GateOpen = new();
+            public static readonly UnityEvent<Teleport>
+                TeleportPosition = new();
+
+            public static readonly UnityEvent<int> GateOpen  = new();
             public static readonly UnityEvent<int> GateClose = new();
         }
     }

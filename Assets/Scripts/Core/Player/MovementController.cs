@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Movement;
@@ -8,7 +9,7 @@ namespace DungeonSurvivor.Core.Player
     {
         #region Variables
 
-        [SerializeField] private NavMeshAgent agent;
+        public NavMeshAgent Agent { get; private set; }
 
         #endregion
 
@@ -16,15 +17,20 @@ namespace DungeonSurvivor.Core.Player
 
         private void OnMoveToPositionCalled(Vector3 targetPos)
         {
-            if (agent is not null)
+            if (Agent is not null)
             {
-                agent.SetDestination(targetPos);
+                Agent.SetDestination(targetPos);
             }
         }
 
         #endregion
 
         #region UnityLifeCycle
+        
+        private void Awake()
+        {
+            Agent = GetComponent<NavMeshAgent>();
+        }
 
         private void OnEnable()
         {
