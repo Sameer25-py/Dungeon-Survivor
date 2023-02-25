@@ -16,8 +16,7 @@ namespace DungeonSurvivor.Core.Puzzles
         public float DirectionEntered { get; private set; }
 
         #endregion
-
-
+        
         #region EventListeners
 
         private void TeleportToThis(Teleport teleport)
@@ -62,7 +61,6 @@ namespace DungeonSurvivor.Core.Puzzles
             DirectionEntered = Vector3.Angle(transform.position, other.transform.position);
             TeleportPosition?.Invoke(this);
         }
-        
         
         #endregion
     }
