@@ -14,10 +14,19 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
         [SerializeField] private List<GameObject> staticPatternObjects;
         [SerializeField] private List<GameObject> scrambledPatternObjects;
         [SerializeField] private int              matchItemsCount;
-        
+
+        [SerializeField] private Image staticPatternBackDrop;
+        [SerializeField] private Image scrambledPatternBackDrop;
+        [SerializeField] private Color correctPatternColor;
+        [SerializeField] private Color wrongPatternColor;
+
+        [SerializeField] private GameObject staticItemBox;
+        [SerializeField] private GameObject scrambledItemBox;
+
         private bool       _isSwaping;
         private bool       _isSwapAvailable = true;
         private GameObject _swapCandidate;
+        private LTDescr    _swapCandidateSelectTween;
 
         private List<int> GeneratePattern(int maxRange, List<int> blackList = null)
         {
@@ -88,12 +97,35 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
                     return false;
                 }
             }
+
             return true;
         }
 
         private void PlayEndAnimation()
         {
-            
+            LeanTween.color(scrambledPatternBackDrop.rectTransform, correctPatternColor, 0.5f)
+                .setEaseInExpo()
+                .setOnComplete(() =>
+                {
+                    LeanTween.move(scrambledItemBox.GetComponent<RectTransform>(), Vector3.zero, 0.3f)
+                        .setEaseOutExpo()
+                        .setDelay(0.5f);
+                    LeanTween.move(staticItemBox.GetComponent<RectTransform>(), Vector3.zero, 0.3f)
+                        .setEaseOutExpo()
+                        .setDelay(0.5f)
+                        .setOnComplete(() =>
+                        {
+                            float delay = 0.1f;
+                            foreach (GameObject obj in scrambledPatternObjects)
+                            {
+                                LeanTween.rotateAround(obj, Vector3.forward, -360f, 2f)
+                                    .setDelay(delay)
+                                    .setEaseOutExpo();
+
+                                delay *= 2f;
+                            }
+                        });
+                });
         }
 
         private void OnMatchItemClicked(int clickedItem)
@@ -107,15 +139,19 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
             {
                 _isSwapAvailable = false;
                 _swapCandidate   = GetMatchItemFromID(clickedItem);
+                _swapCandidateSelectTween = LeanTween.scale(_swapCandidate, new Vector3(1.2f, 1.2f, 1.2f), 0.5f)
+                    .setEaseShake()
+                    .setLoopClamp();
             }
             else
             {
                 GameObject swapWithCandidate = GetMatchItemFromID(clickedItem);
+                LeanTween.cancel(_swapCandidateSelectTween.id);
+                _swapCandidate.GetComponent<RectTransform>()
+                    .localScale = Vector3.one;
                 if (_swapCandidate.Equals(swapWithCandidate))
                 {
                     _isSwapAvailable = true;
-
-                    //ToDO: stop tweening swapCandidate
                 }
                 else
                 {
@@ -143,14 +179,15 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
                                 {
                                     PlayEndAnimation();
                                 }
-        
                             })
                             .setEaseInBounce();
                     }
                     else
                     {
                         _isSwapAvailable = true;
-                        //ToDO: stop tweening swapCandidate
+                        LeanTween.cancel(_swapCandidateSelectTween.id);
+                        _swapCandidate.GetComponent<RectTransform>()
+                            .localScale = Vector3.one;
                     }
                 }
             }
@@ -163,7 +200,11 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
             staticPatternObjects.ForEach(obj => obj.transform.localScale    = Vector3.zero);
             scrambledPatternObjects.ForEach(obj => obj.transform.localScale = Vector3.zero);
             DisplayPattern(staticPatternObjects, staticPattern);
+            LeanTween.color(staticPatternBackDrop.rectTransform, correctPatternColor, 0.5f)
+                .setEaseLinear();
             DisplayPattern(scrambledPatternObjects, scrambledPattern);
+            LeanTween.color(scrambledPatternBackDrop.rectTransform, wrongPatternColor, 0.5f)
+                .setEaseLinear();
             MatchItemClicked.AddListener(OnMatchItemClicked);
         }
 
