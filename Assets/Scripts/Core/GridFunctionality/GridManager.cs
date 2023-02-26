@@ -6,7 +6,7 @@ using DungeonSurvivor.Core.Player;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.Internal;
 
-namespace DungeonSurvivor.Core.Grid
+namespace DungeonSurvivor.Core.GridFunctionality
 {
     public class GridManager : Singleton<GridManager>
     {

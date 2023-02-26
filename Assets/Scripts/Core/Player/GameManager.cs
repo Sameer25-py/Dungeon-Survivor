@@ -1,5 +1,5 @@
 using DungeonSurvivor.Core.Data;
-using DungeonSurvivor.Core.Grid;
+using DungeonSurvivor.Core.GridFunctionality;
 using UnityEngine;
 using DungeonSurvivor.Core.Managers;
 
@@ -7,14 +7,14 @@ namespace DungeonSurvivor.Core.Player
 {
     public class GameManager : Singleton<GameManager>
     {
-        public  GameData         data;
-        private Core.Grid.Grid[] levelGrids;
+        public  GameData                 data;
+        private GridFunctionality.Grid[] levelGrids;
         protected override void BootOrderAwake()
         {
-            levelGrids = new Core.Grid.Grid[data.levelSizes.Count];
+            levelGrids = new GridFunctionality.Grid[data.levelSizes.Count];
             for (var i = 0; i < data.levelSizes.Count; i++)
             {
-                levelGrids[i] = new Core.Grid.Grid(data.levelSizes[i]
+                levelGrids[i] = new GridFunctionality.Grid(data.levelSizes[i]
                     .x, data.levelSizes[i]
                     .y);
             }

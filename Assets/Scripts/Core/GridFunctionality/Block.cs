@@ -1,8 +1,7 @@
-﻿using DungeonSurvivor.Core.Player;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace DungeonSurvivor.Core.Grid
+namespace DungeonSurvivor.Core.GridFunctionality
 {
     public class Block : MonoBehaviour
     {
