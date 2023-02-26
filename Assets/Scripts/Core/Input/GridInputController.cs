@@ -10,11 +10,11 @@ namespace DungeonSurvivor.Core.Input
         {
             if (UnityEngine.Input.GetKeyDown("up"))
             {
-                MoveInDirection?.Invoke(Direction.Up);   
+                MoveInDirection?.Invoke(Direction.Down);   
             }
             else if (UnityEngine.Input.GetKeyDown("down"))
             {
-                MoveInDirection?.Invoke(Direction.Down);  
+                MoveInDirection?.Invoke(Direction.Up);  
             }
             else if (UnityEngine.Input.GetKeyDown("left"))
             {

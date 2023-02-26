@@ -11,7 +11,6 @@ namespace DungeonSurvivor.Core.GridFunctionality
     public class GridManager : Singleton<GridManager>
     {
         [SerializeField] private List<Block> currentLevelBlocks;
-
         private void GetCurrentLevelBlocks()
         {
             currentLevelBlocks = GetComponentsInChildren<Block>()
@@ -22,7 +21,7 @@ namespace DungeonSurvivor.Core.GridFunctionality
         private Block GetBlockByIndex(int row, int column)
         {
             Block blk = new();
-            foreach (Block block in currentLevelBlocks.Where(block => block.index.x == row && block.index.x == column))
+            foreach (Block block in currentLevelBlocks.Where(block => block.index.x == row && block.index.y == column))
             {
                 blk = block;
             }
@@ -51,7 +50,6 @@ namespace DungeonSurvivor.Core.GridFunctionality
                 default:
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
-
             if (GameManager.Instance.IsValidGridIndex(newIndex))
             {
                 block = GetBlockByIndex(newIndex.x, newIndex.y);
