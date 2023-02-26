@@ -55,8 +55,8 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 8.5
-    NearClipPlane: 0.001
+    OrthographicSize: 10
+    NearClipPlane: -1
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -129,20 +129,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0.1
-  m_LookaheadSmoothing: 0.05
+  m_TrackedObjectOffset: {x: 0, y: 1.29, z: 0.5}
+  m_LookaheadTime: 0.5
+  m_LookaheadSmoothing: 15.13
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 0
+  m_VerticalDamping: 0
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.342
-  m_DeadZoneHeight: 0.452
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
   m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.7605094
+  m_SoftZoneHeight: 0.8
   m_BiasX: 0
-  m_BiasY: -0.1515935
+  m_BiasY: 0
   m_CenterOnActivate: 1
 --- !u!114 &4118277499262618762
 MonoBehaviour:
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: -9.19, y: 10.13, z: -10}
+  m_FollowOffset: {x: -11.46, y: 8.34, z: -12.85}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
