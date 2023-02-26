@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DungeonSurvivor.Core.Player
+namespace DungeonSurvivor.Core.Data
 {
     [CreateAssetMenu]
     public class GameData : ScriptableObject

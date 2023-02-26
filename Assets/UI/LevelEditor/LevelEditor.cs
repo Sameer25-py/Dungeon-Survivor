@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DungeonSurvivor.Core.Data;
+using DungeonSurvivor.Core.Grid;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DungeonSurvivor.Core.Player
+namespace DungeonSurvivor.Core.Grid
 {
     public class Grid
     {
@@ -31,6 +31,11 @@ namespace DungeonSurvivor.Core.Player
         public bool CanMove(Vector2Int index)
         {
             return blocks[index.x, index.y] == BlockType.Standing;
+        }
+
+        public bool IsValidBlock(Vector2Int index)
+        {
+            return (index.x >= 0 && index.x < rows) && (index.y >= 0 && index.y < cols);
         }
     }
     public enum BlockType
