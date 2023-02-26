@@ -5,14 +5,16 @@ namespace DungeonSurvivor.Controllers.Animations.Door
     public class DoorAnimator : MonoBehaviour
     {
         [SerializeField] private GameObject rotatatable;
+
+        private LTDescr _descr;
         public void OpenDoor()
         {
-            LeanTween.rotateAround(rotatatable, Vector3.down, 90f, 1f).setEaseInExpo();
+            LeanTween.rotateLocal(rotatatable, Vector3.down * 90f, 1f).setEaseInExpo();
         }
 
         public void CloseDoor()
         {
-            LeanTween.rotateAround(rotatatable, Vector3.up, 90f, 1f).setEaseOutExpo();
+            LeanTween.rotateLocal(rotatatable, Vector3.zero, 0.5f).setEaseOutExpo();
         }
     }
 }
