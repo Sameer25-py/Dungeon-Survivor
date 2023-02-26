@@ -18,45 +18,49 @@ namespace DungeonSurvivor.Core.GridFunctionality
             GridDataCollectionCompleted?.Invoke();
         }
 
-        private Block GetBlockByIndex(int row, int column)
+        private Block GetBlockByIndex(Vector2Int index)
         {
-            Block blk = new();
-            foreach (Block block in currentLevelBlocks.Where(block => block.index.x == row && block.index.y == column))
-            {
-                blk = block;
-            }
-
-            return blk;
+            return currentLevelBlocks.FirstOrDefault(blk => blk.index.x == index.x && blk.index.y == index.y);
+            // Block blk = null;
+            // foreach (var block in currentLevelBlocks.Where(block => block.index.x == row && block.index.y == column))
+            // {
+            //     blk = block;
+            // }
+            // return blk;
         }
 
-        public Block GetBlock(int row, int column, Direction direction)
+        public Block GetBlock(Vector2Int index)
         {
-            Block      block = new();
-            Vector2Int newIndex;
-            switch (direction)
-            {
-                case Direction.Up:
-                    newIndex = new Vector2Int(row, column - 1);
-                    break;
-                case Direction.Down:
-                    newIndex = new Vector2Int(row, column + 1);
-                    break;
-                case Direction.Left:
-                    newIndex = new Vector2Int(row - 1, column);
-                    break;
-                case Direction.Right:
-                    newIndex = new Vector2Int(row + 1, column);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-            }
-            if (GameManager.Instance.IsValidGridIndex(newIndex))
-            {
-                block = GetBlockByIndex(newIndex.x, newIndex.y);
-            }
-
-            return block;
+            return GameManager.Instance.IsValidGridIndex(index) ? GetBlockByIndex(index) : null;
         }
+        // public Block GetBlock(int row, int column, Direction direction)
+        // {
+        //     Block block = null;
+        //     Vector2Int newIndex;
+        //     switch (direction)
+        //     {
+        //         case Direction.Up:
+        //             newIndex = new Vector2Int(row, column - 1);
+        //             break;
+        //         case Direction.Down:
+        //             newIndex = new Vector2Int(row, column + 1);
+        //             break;
+        //         case Direction.Left:
+        //             newIndex = new Vector2Int(row - 1, column);
+        //             break;
+        //         case Direction.Right:
+        //             newIndex = new Vector2Int(row + 1, column);
+        //             break;
+        //         default:
+        //             throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+        //     }
+        //     if (GameManager.Instance.IsValidGridIndex(newIndex))
+        //     {
+        //         block = GetBlockByIndex(newIndex.x, newIndex.y);
+        //     }
+        //
+        //     return block;
+        // }
 
         private void Start()
         {
@@ -64,12 +68,12 @@ namespace DungeonSurvivor.Core.GridFunctionality
         }
     }
 
-    [Serializable]
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
+    // [Serializable]
+    // public enum Direction
+    // {
+    //     Up,
+    //     Down,
+    //     Left,
+    //     Right
+    // }
 }

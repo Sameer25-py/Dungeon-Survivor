@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using DungeonSurvivor.Core.GridFunctionality;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Movement;
 
 namespace DungeonSurvivor.Core.Input
@@ -8,21 +7,21 @@ namespace DungeonSurvivor.Core.Input
     {
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown("up"))
+            if (UnityEngine.Input.GetKey("up"))
             {
-                MoveInDirection?.Invoke(Direction.Down);   
+                MoveInDirection?.Invoke(Vector2Int.up);   
             }
-            else if (UnityEngine.Input.GetKeyDown("down"))
+            else if (UnityEngine.Input.GetKey("down"))
             {
-                MoveInDirection?.Invoke(Direction.Up);  
+                MoveInDirection?.Invoke(Vector2Int.down);  
             }
-            else if (UnityEngine.Input.GetKeyDown("left"))
+            else if (UnityEngine.Input.GetKey("left"))
             {
-                MoveInDirection?.Invoke(Direction.Left);  
+                MoveInDirection?.Invoke(Vector2Int.left);  
             }
-            else if (UnityEngine.Input.GetKeyDown("right"))
+            else if (UnityEngine.Input.GetKey("right"))
             {
-                MoveInDirection?.Invoke(Direction.Right);
+                MoveInDirection?.Invoke(Vector2Int.right);
             }
         }
     }
