@@ -1,31 +1,23 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DungeonSurvivor.Core.Player
 {
     public class Grid
     {
-        public int Rows { get; private set; }
-        public int Cols { get; private set; }
-        
-        private readonly BlockType[,] blocks;
-        private readonly Dictionary<Direction, Vector2Int> map = new()
-        {
-            { Direction.Up, Vector2Int.up },
-            { Direction.Down, Vector2Int.down },
-            { Direction.Left, Vector2Int.left },
-            { Direction.Right, Vector2Int.right }
-        };
+        public readonly int rows;
+        public readonly int cols;
+        public readonly BlockType[,] blocks;
+
         public Grid(int rows, int columns)
         {
-            Rows = rows;
-            Cols = columns;
+            this.rows = rows;
+            this.cols = columns;
             
-            blocks = new BlockType[Rows, Cols];
+            blocks = new BlockType[this.rows, cols];
             
-            for (var i = 0; i < Rows; i++)
+            for (var i = 0; i < this.rows; i++)
             {
-                for (var j = 0; j < Cols; j++)
+                for (var j = 0; j < cols; j++)
                 {
                     blocks[i, j] = BlockType.None;
                 }
@@ -33,21 +25,17 @@ namespace DungeonSurvivor.Core.Player
         }
         public void SetBlock(Vector2Int index, BlockType blockType)
         {
-            if (0 > index.x || index.x >= Rows || 0 > index.y || index.y >= Cols) return;
+            if (0 > index.x || index.x >= rows || 0 > index.y || index.y >= cols) return;
             blocks[index.x, index.y] = blockType;
         }
-        public bool CanMove(Vector2Int index, Direction direction)
+        public bool CanMove(Vector2Int index)
         {
-            var nextIndex = index + map[direction];
-            return blocks[nextIndex.x, nextIndex.y] == BlockType.Standing;
+            return blocks[index.x, index.y] == BlockType.Standing;
         }
     }
     public enum BlockType
     {
         None, Standing, Water, Wall
     }
-    public enum Direction
-    {
-        Up, Down, Left, Right
-    }
+
 }
