@@ -35,7 +35,6 @@ namespace DungeonSurvivor.Core.GridFunctionality
             return (index.x >= 0 && index.x < rows) && (index.y >= 0 && index.y < cols) &&
                    blocks[index.x, index.y] == BlockType.Standing;
         }
-        
     }
 
     public enum BlockType
