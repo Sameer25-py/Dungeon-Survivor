@@ -54,7 +54,7 @@ namespace DungeonSurvivor.Core.GridFunctionality
 
             if (GameManager.Instance.IsValidGridIndex(newIndex))
             {
-                block = GetBlockByIndex(row + 1, column);
+                block = GetBlockByIndex(newIndex.x, newIndex.y);
             }
 
             return block;

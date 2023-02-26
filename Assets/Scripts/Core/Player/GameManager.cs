@@ -9,6 +9,7 @@ namespace DungeonSurvivor.Core.Player
     {
         public  GameData                 data;
         private GridFunctionality.Grid[] levelGrids;
+
         protected override void BootOrderAwake()
         {
             levelGrids = new GridFunctionality.Grid[data.levelSizes.Count];
@@ -27,25 +28,12 @@ namespace DungeonSurvivor.Core.Player
             }
 
             base.BootOrderAwake();
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    Check(new Vector2Int(i, j));
-                }
-            }
-        }
-        private void Check(Vector2Int index)
-        {
-            print($"Can move on {index}? => {levelGrids[0].CanMove(index)}");
         }
 
         public bool IsValidGridIndex(Vector2Int index)
         {
             return levelGrids[0]
-                .IsValidBlock(index);
+                .CanMove(index);
         }
-        
     }
 }

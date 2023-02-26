@@ -1,5 +1,6 @@
 using UnityEngine;
 using DungeonSurvivor.Core.Player;
+using DungeonSurvivor.Core.Player.Movement;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Puzzles;
 
 namespace DungeonSurvivor.Core.Puzzles
