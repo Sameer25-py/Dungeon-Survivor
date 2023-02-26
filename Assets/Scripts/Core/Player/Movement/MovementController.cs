@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Movement;
 
-namespace DungeonSurvivor.Core.Player
+namespace DungeonSurvivor.Core.Player.Movement
 {
     public class MovementController : MonoBehaviour
     {

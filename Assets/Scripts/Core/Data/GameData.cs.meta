@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: dd342d83b80866e43bc819e1a8c92137
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - prefabStand: {fileID: 1425654015299968027, guid: 71c2eafab36ab6942afa8411d1501115,
+      type: 3}
+  - prefabWater: {fileID: 9177319231530254279, guid: 657a6efaf860a474fa8856f6b645b5fc,
+      type: 3}
+  - prefabWall: {fileID: 2738465056736143970, guid: 473f3d9ded1bac040983ad8c9196d354,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
