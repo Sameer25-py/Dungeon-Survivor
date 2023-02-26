@@ -45,11 +45,5 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
             _pressableRenderer = pressable.GetComponent<Renderer>();
             UpdateColor(defaultColor);
         }
-
-        private void Start()
-        {
-            Invoke(nameof(PressButton), 1f);
-            Invoke(nameof(ReleaseButton), 2f);
-        }
     }
 }
