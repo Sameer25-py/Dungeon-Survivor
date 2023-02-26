@@ -1,7 +1,7 @@
 ﻿using DungeonSurvivor.Core.Puzzles;
 using UnityEngine;
 using UnityEngine.Events;
-using Direction = DungeonSurvivor.Core.GridFunctionality.Direction;
+// using Direction = DungeonSurvivor.Core.GridFunctionality.Direction;
 
 namespace DungeonSurvivor.Core.Events
 {
@@ -10,7 +10,7 @@ namespace DungeonSurvivor.Core.Events
         public static class Movement
         {
             public static readonly UnityEvent<Vector3>   MoveToPosition  = new();
-            public static readonly UnityEvent<Direction> MoveInDirection = new();
+            public static readonly UnityEvent<Vector2Int> MoveInDirection = new();
         }
 
         public static class Puzzles
