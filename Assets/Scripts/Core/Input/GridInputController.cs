@@ -9,19 +9,19 @@ namespace DungeonSurvivor.Core.Input
         {
             if (UnityEngine.Input.GetKey("up"))
             {
-                MoveInDirection?.Invoke(Vector2Int.up);   
+                MoveInDirection?.Invoke(0, Vector2Int.up);   
             }
             else if (UnityEngine.Input.GetKey("down"))
             {
-                MoveInDirection?.Invoke(Vector2Int.down);  
+                MoveInDirection?.Invoke(0, Vector2Int.down);  
             }
             else if (UnityEngine.Input.GetKey("left"))
             {
-                MoveInDirection?.Invoke(Vector2Int.left);  
+                MoveInDirection?.Invoke(0, Vector2Int.left);  
             }
             else if (UnityEngine.Input.GetKey("right"))
             {
-                MoveInDirection?.Invoke(Vector2Int.right);
+                MoveInDirection?.Invoke(0, Vector2Int.right);
             }
         }
     }

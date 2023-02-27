@@ -1,21 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using DungeonSurvivor.Core.ID;
 using DungeonSurvivor.Core.GridFunctionality;
-using DungeonSurvivor.Controllers.Animations.Character;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Movement;
 
 namespace DungeonSurvivor.Core.Player.Movement
 {
-    public class GridMovement : MonoBehaviour
+    public abstract class GridMovement : MonoBehaviour
     {
-        [SerializeField] private CharacterAnimator characterAnimator;
-        [SerializeField] private Vector2Int currentIndex;
-        [SerializeField] private float moveTime;
-        
-        private Vector3 targetPosition;
+        [SerializeField] protected int ID;
+        [SerializeField] protected Vector2Int currentIndex;
+        [SerializeField] protected float moveTime;
+        [SerializeField] protected float height;
 
-        private void OnMoveInDirectionCalled(Vector2Int direction)
+        protected Vector3 targetPosition;
+
+        private void OnMoveInDirectionCalled(int id, Vector2Int direction)
         {
+            if (id != ID) return;
             var block = GridManager.Instance.GetBlock(currentIndex + direction);
 
             if (!block) return;
@@ -27,15 +28,17 @@ namespace DungeonSurvivor.Core.Player.Movement
         private void Move(Block block)
         {
             targetPosition = block.transform.position;
-            targetPosition.y = 0.5f;
-            currentIndex          = block.index;
-            characterAnimator.running = true;
-            transform.LookAt(targetPosition);
-            LeanTween.move(gameObject, targetPosition, moveTime)
-                .setEaseInSine()
-                .setOnComplete(() => { characterAnimator.running = false; });
+            targetPosition.y = height;
+            currentIndex = block.index;
+            Animate();
         }
-        
+
+        protected virtual void Animate()
+        {
+            transform.LookAt(targetPosition);
+            LeanTween.move(gameObject, targetPosition, moveTime).setEaseInSine();
+        }
+
         private void OnEnable()
         {
             MoveInDirection.AddListener(OnMoveInDirectionCalled);
@@ -45,6 +48,14 @@ namespace DungeonSurvivor.Core.Player.Movement
         private void OnDisable()
         {
             MoveInDirection.RemoveListener(OnMoveInDirectionCalled);
+        }
+    }
+    
+    public abstract class AIMovement : GridMovement
+    {
+        private void Start()
+        {
+            ID = IDManager.AssignEnemyID();
         }
     }
 }

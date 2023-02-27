@@ -18884,21 +18884,6 @@ MonoBehaviour:
   running: 0
   animator: {fileID: 1518552946}
   crossFadeTime: 0.2
---- !u!114 &1518552948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518552944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d103d0cfcc4a4ab979695f3bc6194d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterAnimator: {fileID: 1518552947}
-  currentIndex: {x: 0, y: 4}
-  moveTime: 0.2
 --- !u!114 &1518552949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18925,6 +18910,23 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1518552952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518552944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee398f9c5400ec4e8407d0f7df5957b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  currentIndex: {x: 0, y: 4}
+  moveTime: 0.15
+  height: 0.5
+  characterAnimator: {fileID: 1518552947}
 --- !u!1001 &1519901557
 PrefabInstance:
   m_ObjectHideFlags: 0
