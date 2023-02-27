@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Player;
+using DungeonSurvivor.Core.Pushables;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.Internal;
 
@@ -10,7 +11,9 @@ namespace DungeonSurvivor.Core.GridFunctionality
 {
     public class GridManager : Singleton<GridManager>
     {
-        [SerializeField] private List<Block> currentLevelBlocks;
+        [SerializeField] private List<Block>        currentLevelBlocks;
+        [SerializeField] private List<PushableBase> pushables;
+
         private void GetCurrentLevelBlocks()
         {
             currentLevelBlocks = GetComponentsInChildren<Block>()
@@ -21,59 +24,35 @@ namespace DungeonSurvivor.Core.GridFunctionality
         private Block GetBlockByIndex(Vector2Int index)
         {
             return currentLevelBlocks.FirstOrDefault(blk => blk.index.x == index.x && blk.index.y == index.y);
-            // Block blk = null;
-            // foreach (var block in currentLevelBlocks.Where(block => block.index.x == row && block.index.y == column))
-            // {
-            //     blk = block;
-            // }
-            // return blk;
+        }
+
+        public Tuple<bool, PushableBase> IsIndexCollideWithPushable(Vector2Int index)
+        {
+            Tuple<bool, PushableBase> detectedPushable = new Tuple<bool, PushableBase>(false, null);
+            foreach (PushableBase pushable in pushables)
+            {
+                if (pushable.CurrentIndex.Equals(index))
+                {
+                    detectedPushable = new Tuple<bool, PushableBase>(true, pushable);
+                    break;
+                }
+            }
+
+            return detectedPushable;
         }
 
         public Block GetBlock(Vector2Int index)
         {
-            return GameManager.Instance.IsValidGridIndex(index) ? GetBlockByIndex(index) : null;
+            return GameManager.Instance.IsValidGridIndex(index)
+                ? GetBlockByIndex(index)
+                : null;
         }
-        // public Block GetBlock(int row, int column, Direction direction)
-        // {
-        //     Block block = null;
-        //     Vector2Int newIndex;
-        //     switch (direction)
-        //     {
-        //         case Direction.Up:
-        //             newIndex = new Vector2Int(row, column - 1);
-        //             break;
-        //         case Direction.Down:
-        //             newIndex = new Vector2Int(row, column + 1);
-        //             break;
-        //         case Direction.Left:
-        //             newIndex = new Vector2Int(row - 1, column);
-        //             break;
-        //         case Direction.Right:
-        //             newIndex = new Vector2Int(row + 1, column);
-        //             break;
-        //         default:
-        //             throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-        //     }
-        //     if (GameManager.Instance.IsValidGridIndex(newIndex))
-        //     {
-        //         block = GetBlockByIndex(newIndex.x, newIndex.y);
-        //     }
-        //
-        //     return block;
-        // }
 
         private void Start()
         {
             GetCurrentLevelBlocks();
+            pushables = FindObjectsByType<PushableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .ToList();
         }
     }
-
-    // [Serializable]
-    // public enum Direction
-    // {
-    //     Up,
-    //     Down,
-    //     Left,
-    //     Right
-    // }
 }

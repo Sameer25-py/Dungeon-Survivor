@@ -12,7 +12,7 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent<Vector3>   MoveToPosition  = new();
             public static readonly UnityEvent<Vector2Int> MoveInDirection = new();
         }
-
+        
         public static class Puzzles
         {
             public static readonly UnityEvent<Teleport>
