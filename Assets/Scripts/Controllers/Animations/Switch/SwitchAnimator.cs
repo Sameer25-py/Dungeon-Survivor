@@ -4,7 +4,7 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
 {
     public class SwitchAnimator : MonoBehaviour
     {
-        [SerializeField] private GameObject pressable;
+        [SerializeField] private GameObject pressable, gem;
         [SerializeField] private Color      defaultColor;
         [SerializeField] private Color      pressedColor;
 
@@ -12,6 +12,7 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
         [SerializeField] private Vector3 unPressedPosition = new Vector3(0f, 0.08f, 0f);
 
         private                 Renderer _pressableRenderer;
+        private                 Renderer _gemRenderer;
         private static readonly int      s_baseColor = Shader.PropertyToID("_BaseColor");
 
         public void PressButton()
@@ -36,11 +37,13 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
             _pressableRenderer.GetPropertyBlock(mpb);
             mpb.SetColor(s_baseColor, color);
             _pressableRenderer.SetPropertyBlock(mpb);
+            _gemRenderer.SetPropertyBlock(mpb);
         }
 
         private void OnEnable()
         {
             _pressableRenderer = pressable.GetComponent<Renderer>();
+            _gemRenderer = gem.GetComponent<Renderer>();
             UpdateColor(defaultColor);
         }
     }

@@ -18,6 +18,13 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         private static readonly int run2 = Animator.StringToHash("DS_Char_NarutoRun");
         private static readonly int push = Animator.StringToHash("DS_Char_Push");
 
+        private static readonly int dance1 = Animator.StringToHash("DS_Char_HiphopDance1");
+        private static readonly int dance2 = Animator.StringToHash("DS_Char_HiphopDance2");
+        private static readonly int dance3 = Animator.StringToHash("DS_Char_HiphopDance3");
+        private static readonly int dance4 = Animator.StringToHash("DS_Char_HiphopDance4");
+        private static readonly int dance5 = Animator.StringToHash("DS_Char_HiphopDance5");
+        private static readonly int dance6 = Animator.StringToHash("DS_Char_HiphopDance6");
+        
         private void Update()
         {
             var state = GetStateHash();
@@ -32,7 +39,7 @@ namespace DungeonSurvivor.Controllers.Animations.Character
 
             if (pushing) return push;
             if (running) return run2;
-            return idle;
+            return dance1;
         }
         
         // private int LockState(int s, float t)
