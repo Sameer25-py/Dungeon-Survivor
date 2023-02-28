@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DungeonSurvivor.Analytics.Player;
+using UnityEngine;
 using DungeonSurvivor.Core.ID;
 using DungeonSurvivor.Core.GridFunctionality;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Movement;
@@ -33,11 +34,11 @@ namespace DungeonSurvivor.Core.Player.Movement
             timeSinceInput = 0;
         }
 
-        private void Move(Block block)
+        protected virtual void Move(Block block)
         {
-            targetPosition = block.transform.position;
-            targetPosition.y = height;
-            currentIndex = block.index;
+            targetPosition                            =  block.transform.position;
+            targetPosition.y                          =  height;
+            currentIndex                              =  block.index;
             Animate();
         }
 
