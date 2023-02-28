@@ -18,9 +18,7 @@ namespace DungeonSurvivor.Core.Player.Movement
 
         #region EventListeners
         private  void OnCollisionEnter(Collision other)
-        
         {
-            
             IInventoryItem item=other.gameObject.GetComponent<IInventoryItem>();
             if(item !=null)
             {

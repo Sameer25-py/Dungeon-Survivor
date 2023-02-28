@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DungeonSurvivor.Core.Data;
 using DungeonSurvivor.Core.GridFunctionality;
 using DungeonSurvivor.Core.Player;
@@ -28,7 +29,7 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
         {
             var root = rootVisualElement;
 
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/LevelEditor/LevelEditor.uxml");
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/LevelEditorFunctionality/LevelEditor.uxml");
             root.Add(visualTree.Instantiate());
 
             rowInput = root.Q<TextField>("row-input");

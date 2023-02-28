@@ -32,7 +32,7 @@ namespace DungeonSurvivor.Core.GridFunctionality
 
         public bool CanMove(Vector2Int index)
         {
-            return (index.x >= 0 && index.x < rows) && (index.y >= 0 && index.y < cols) &&
+            return index.x >= 0 && index.x < rows && index.y >= 0 && index.y < cols &&
                    blocks[index.x, index.y] == BlockType.Standing;
         }
     }
