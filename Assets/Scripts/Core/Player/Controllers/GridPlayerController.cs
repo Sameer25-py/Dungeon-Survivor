@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonSurvivor.Analytics.Player;
 using DungeonSurvivor.Core.GridFunctionality;
 using DungeonSurvivor.Core.Pushables;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace DungeonSurvivor.Core.Player.Controllers
                     currentIndex = block.index;
                     _isMoving    = false;
                 });
+            PlayerDataHandler.PlayerMoveCountPerStage += 1;
         }
         private void OnEnable()
         {
