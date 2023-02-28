@@ -18924,8 +18924,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   currentIndex: {x: 0, y: 4}
-  moveTime: 0.15
+  moveTime: 0.18
   height: 0.5
+  exitTime: 0.25
   characterAnimator: {fileID: 1518552947}
 --- !u!1001 &1519901557
 PrefabInstance:

@@ -21,8 +21,6 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         private void Update()
         {
             var state = GetStateHash();
-            print($"GetState={state}, CurrentState={currentState}");
-            
             if (state == currentState) return;
             animator.CrossFade(state, crossFadeTime);
             currentState = state;
@@ -32,17 +30,15 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         {
             if (Time.time < timeUntil) return currentState;
 
-            // if (pushing) return LockState(push, 0.15f);
-            // return running ? LockState(run, movement.MoveTime) : idle;
             if (pushing) return push;
             if (running) return run2;
             return idle;
         }
         
-        private int LockState(int s, float t)
-        {
-            timeUntil = Time.time + t;
-            return s;
-        }
+        // private int LockState(int s, float t)
+        // {
+        //     timeUntil = Time.time + t;
+        //     return s;
+        // }
     }
 }

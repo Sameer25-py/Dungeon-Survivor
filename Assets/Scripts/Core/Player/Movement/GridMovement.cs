@@ -11,9 +11,16 @@ namespace DungeonSurvivor.Core.Player.Movement
         [SerializeField] protected Vector2Int currentIndex;
         [SerializeField] protected float moveTime;
         [SerializeField] protected float height;
-
+        [SerializeField] protected float exitTime;
+        
         protected Vector3 targetPosition;
+        protected float timeSinceInput;
 
+        protected virtual void Update()
+        {
+            if (timeSinceInput < exitTime) timeSinceInput += Time.deltaTime;
+        }
+        
         private void OnMoveInDirectionCalled(int id, Vector2Int direction)
         {
             if (id != ID) return;
@@ -23,6 +30,7 @@ namespace DungeonSurvivor.Core.Player.Movement
             if (block.type is BlockType.None) return;
             if (Vector3.Distance(transform.position, targetPosition) > 0.01f) return;
             Move(block);
+            timeSinceInput = 0;
         }
 
         private void Move(Block block)
