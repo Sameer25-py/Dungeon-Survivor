@@ -17,7 +17,7 @@ namespace DungeonSurvivor.Controllers.Countdown
         private void ObserveTimer()
         {
             CountDownTime countDownTimer  = countDown.GetCountDownTime;
-            string        countDownString = countDownTimer.Minutes + " : " + countDownTimer.Seconds;
+            string        countDownString = $"{countDownTimer.Minutes:00} : {countDownTimer.Seconds:00}";
             levelEndCountDownText.text = countDownString;
 
             //TODO: Insert logic to broadcast progress
