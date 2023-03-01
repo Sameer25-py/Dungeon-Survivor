@@ -35,6 +35,13 @@ namespace DungeonSurvivor.Core.Player
         {
             return levelGrids[0].CanMove(index);
         }
+
+        public Vector2Int GetGridSize()
+        {
+            return new Vector2Int(levelGrids[0]
+                .rows, levelGrids[0]
+                .cols);
+        }
         
         #if UNITY_EDITOR
         [MenuItem("Dungeon Survivor/Show Block Indexes")]

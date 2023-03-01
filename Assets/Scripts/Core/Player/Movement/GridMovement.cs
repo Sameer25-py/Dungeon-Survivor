@@ -30,28 +30,34 @@ namespace DungeonSurvivor.Core.Player.Movement
             if (!block) return;
             if (block.type is BlockType.None) return;
             if (Vector3.Distance(transform.position, targetPosition) > 0.01f) return;
-            Move(block);
+            Move(block,direction);
             timeSinceInput = 0;
         }
 
-        protected virtual void Move(Block block)
+        protected virtual void Move(Block block, Vector2Int direction,float time = 0f)
         {
             targetPosition                            =  block.transform.position;
             targetPosition.y                          =  height;
             currentIndex                              =  block.index;
-            Animate();
+            Animate(time);
         }
 
-        protected virtual void Animate()
+        protected virtual void Animate(float time)
         {
+            if (time == 0f)
+            {
+                time = moveTime;
+            }
             transform.LookAt(targetPosition);
-            LeanTween.move(gameObject, targetPosition, moveTime).setEaseInSine();
+            LeanTween.move(gameObject, targetPosition, time).setEaseInSine();
         }
 
         private void OnEnable()
         {
             MoveInDirection.AddListener(OnMoveInDirectionCalled);
             targetPosition = transform.position;
+            currentIndex.x = (int)targetPosition.x;
+            currentIndex.y = (int)targetPosition.z;
         }
 
         private void OnDisable()
