@@ -3,17 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6ef7344b-7a53-48f2-95c3-dd75b0a447e1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Dungeon-Survivor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Dungeon-Survivor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Environment/Doors/DoorParent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Environment/Doors/DoorParent.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Sameer/Level1_Cinemachine.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Sameer/Level1_Cinemachine.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/Animations/Door/DoorAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Animations/Door/DoorAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Events/Internal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Events/Internal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/GridFunctionality/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/GridFunctionality/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Player/Movement/GridMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Player/Movement/GridMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/Gate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/Gate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/PermanentSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/PermanentSwitch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/TemporarySwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Puzzles/TemporarySwitch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBoulder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBoulder.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

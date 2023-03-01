@@ -15,8 +15,8 @@ namespace DungeonSurvivor.Core.Pushables
         [SerializeField] protected float        MoveSpeed  = 0.3f;
         [SerializeField] protected PushableType PassThroughPushableType;
 
-        private bool      _isMoving;
-        private Coroutine _pushCoroutine;
+        protected bool      IsMoving;
+        private   Coroutine _pushCoroutine;
 
         protected virtual bool CheckNextIndexInDirectionMoveable(Vector2Int currentIndex, Vector2Int direction, PushableType
             passThroughPushable)
@@ -45,7 +45,7 @@ namespace DungeonSurvivor.Core.Pushables
             int totalBlocksMoved = 0;
             while (true)
             {
-                if (_isMoving)
+                if (IsMoving)
                 {
                     yield return new WaitForEndOfFrame();
                     continue;
@@ -59,16 +59,16 @@ namespace DungeonSurvivor.Core.Pushables
                 if (CheckNextIndexInDirectionMoveable(CurrentIndex, direction, PassThroughPushableType))
                 {
                     Block blk = GridManager.Instance.GetBlock(CurrentIndex + direction);
-                    if (!blk || blk.type is BlockType.Wall) yield break;
                     totalBlocksMoved += 1;
                     Vector3 targetPosition = blk.transform.position;
                     targetPosition.y = 0.8f;
                     CurrentIndex     = blk.index;
 
-                    OnPushApplied(targetPosition);
+                    OnPushApplied(targetPosition, direction);
                 }
                 else
-                {
+                {   
+                    StopCoroutine(_pushCoroutine);
                     yield return null;
                 }
 
@@ -92,6 +92,11 @@ namespace DungeonSurvivor.Core.Pushables
                     PushFactor = Math.Max(gridSize.x, gridSize.y);
                 }
 
+                if (_pushCoroutine is not null)
+                {
+                    StopCoroutine(_pushCoroutine);
+                }
+                
                 _pushCoroutine = StartCoroutine(Push(direction));
                 return true;
             }
@@ -99,12 +104,12 @@ namespace DungeonSurvivor.Core.Pushables
             return false;
         }
 
-        protected virtual void OnPushApplied(Vector3 targetPosition)
+        protected virtual void OnPushApplied(Vector3 targetPosition, Vector2Int direction)
         {
-            _isMoving = true;
+            IsMoving = true;
             LeanTween.move(gameObject, targetPosition, MoveSpeed)
                 .setEaseLinear()
-                .setOnComplete(() => { _isMoving = false; });
+                .setOnComplete(() => { IsMoving = false; });
         }
 
         protected virtual void OnPushablePassedThrough()
