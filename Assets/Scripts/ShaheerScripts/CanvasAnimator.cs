@@ -18,19 +18,11 @@ public class CanvasAnimator : MonoBehaviour
 
     public void CallAppearOnAllAnimators()
     {
-        foreach (Animator anim in animators)
-        {
-            anim.ResetTrigger("Hide");
-            anim.SetTrigger("Show");
-        }
+      
     }
 
     public void CallDisappearOnAllAnimators()
     {
-        foreach (Animator anim in animators)
-        {
-            anim.ResetTrigger("Show");
-            anim.SetTrigger("Hide");
-        }
+       
     }
 }

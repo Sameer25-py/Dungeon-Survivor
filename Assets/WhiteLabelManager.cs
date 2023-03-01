@@ -9,6 +9,10 @@ using LootLocker.Requests;
 public class WhiteLabelManager : MonoBehaviour
 {
     public int Player_iD=0;
+    public GameObject StartScreen;
+    public GameObject NewUserScreen;
+    public GameObject LoginUserScreen;
+    public GameObject lobbyScreen;
     // Input fields
     [Header("New User")]
     public TMP_InputField newUserEmailInputField;
@@ -19,49 +23,54 @@ public class WhiteLabelManager : MonoBehaviour
     [Header("Existing User")]
     public TMP_InputField existingUserEmailInputField;
     public TMP_InputField existingUserPasswordInputField;
-    public CanvasAnimator loginCanvasAnimator;
 
-    [Header("Reset password")]
-    public TMP_InputField resetPasswordInputField;
+
+
 
     [Header("RememberMe")]
     // Components for enabling auto login
     public Toggle rememberMeToggle;
-    public Animator rememberMeAnimator;
+   
     private int rememberMe;
 
-    [Header("Button animators")]
-    public Animator autoLoginButtonAnimator;
-    public Animator loginButtonAnimator;
-    public Animator backButtonAnimator;
-    public Animator loginBackButtonAnimator;
-    public Animator newUserButtonAnimator;
-    public Animator resetPasswordButtonAnimator;
+    //[Header("Button animators")]
+    //public Animator autoLoginButtonAnimator;
+    //public Animator loginButtonAnimator;
+    //public Animator backButtonAnimator;
+    //public Animator loginBackButtonAnimator;
+    //public Animator newUserButtonAnimator;
+    //public Animator resetPasswordButtonAnimator;
 
     [Header("Player name")]
     public TextMeshProUGUI playerNameText;
-    public Animator playerNameTextAnimator;
+   
     public TextMeshProUGUI playerIDText;
 
+    [Header("Error Message")]
+    public TextMeshProUGUI errorNameText;
     // Called when pressing "LOGIN" on the login-page
     public void Login()
     {
+        LoginUserScreen.SetActive(true);
+        StartScreen.SetActive(false);
         string email = existingUserEmailInputField.text;
         string password = existingUserPasswordInputField.text;
+        
         LootLockerSDKManager.WhiteLabelLogin(email, password, Convert.ToBoolean(rememberMe), response =>
         {
             if (!response.success)
             {
                 // Error
                 // Animate the buttons
-                loginButtonAnimator.SetTrigger("Error");
-                backButtonAnimator.SetTrigger("Show");
+               
                 Debug.Log("error while logging in");
+                errorNameText.text = "error while logging in";
                 return;
             }
             else
             {
                 Debug.Log("Player was logged in succesfully");
+                errorNameText.text = "";
                 Debug.Log(response);
             }
 
@@ -77,18 +86,18 @@ public class WhiteLabelManager : MonoBehaviour
                 {
                     // Error
                     // Animate the buttons
-                    loginButtonAnimator.SetTrigger("Error");
-                    backButtonAnimator.SetTrigger("Show");
+                   
                     Debug.Log("error starting LootLocker session");
+                    errorNameText.text = "error starting LootLocker session";
                     return;
                 }
                 else
                 {
+                    errorNameText.text = "";
                     // Session was succesfully started;
                     // animate the buttons
-                    Player_iD=response.player_id;
-                    loginButtonAnimator.SetTrigger("LoggedIn");
-                    backButtonAnimator.SetTrigger("Show");
+                    Player_iD =response.player_id;
+                 
                     Debug.Log("session started successfully");
                     Debug.Log("player id"+Player_iD);
                     
@@ -102,17 +111,22 @@ public class WhiteLabelManager : MonoBehaviour
     // Write the players name to the screen
     void SetPlayerNameToGameScreen()
     {
-      
+        LoginUserScreen.SetActive(false);
+        NewUserScreen.SetActive(false);
+        StartScreen.SetActive(false);
+        lobbyScreen.SetActive(true);
+
         LootLockerSDKManager.GetPlayerName((response) =>
         {
             if (response.success)
             {
-                playerNameTextAnimator.ResetTrigger("Hide");
-                playerNameTextAnimator.SetTrigger("Show");
+               
                 PlayerPrefs.SetString("pname", response.name);
                 string pname = PlayerPrefs.GetString("pname");
-                playerNameText.text = "User: "+pname+" UID: "+ Player_iD ;
                 
+                playerNameText.text = "User: "+pname+" UID: "+ PlayerPrefs.GetInt("pid");
+                errorNameText.text = "";
+
             }
         });
     }
@@ -120,89 +134,122 @@ public class WhiteLabelManager : MonoBehaviour
     // Called when pressing "CREATE" on new user screen
     public void NewUser()
     {
+        Debug.Log("new user function called");
+       
+        NewUserScreen.SetActive(true);
+        StartScreen.SetActive(false);
         string email = newUserEmailInputField.text;
         string password = newUserPasswordInputField.text;
         string newNickName = nickNameInputField.text;
-       // string country=countryInputField.text;
-        // Local function for errors
-        void Error(string error)
-        {
-            Debug.Log(error);
-            newUserButtonAnimator.SetTrigger("Error");
-            backButtonAnimator.SetTrigger("Show");
-        }
 
-        LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
+        if (email == "" || password == "")
         {
-            
-            if (!response.success)
+            Debug.Log("empty");
+            errorNameText.text = "Please Fill All Fields";
+            return;
+        }
+        else
+        {
+            Debug.Log("session enter");
+            Debug.Log(email);
+            Debug.Log(password);
+
+
+            // string country=countryInputField.text;
+            // Local function for errors
+            void Error(string error)
             {
-                Error(response.Error);
-                return;
+                Debug.Log(error);
+               
             }
-            else
+
+            LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
             {
-                // Succesful response
-                // Log in player to set name
-                // Login the player
-                LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
+                Debug.Log("SessionRequest");
+                if (!response.success)
                 {
-                    if (!response.success)
-                    {
-                        Error(response.Error);
-                        return;
-                    }
-                    // Start session
-                    LootLockerSDKManager.StartWhiteLabelSession((response) =>
-                    {
-                        if (!response.success)
+                   // Error(response.Error);
+                    errorNameText.text = response.Error;
+                    return;
+                }
+                else
+                {
+                    errorNameText.text = "";
+                    // Succesful response
+                    // Log in player to set name
+                    // Login the player
+                  
+
+                    LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
                         {
-                            Error(response.Error);
-                            return;
-                        }
-                        // Set nickname to be public UID if nothing was provided
-                        if (newNickName == "")
-                        {
-                            newNickName = response.public_uid;
-                        }
-                        // Set new nickname for player
-                        LootLockerSDKManager.SetPlayerName(newNickName, (response) =>
-                        {
-                           
                             if (!response.success)
                             {
                                 Error(response.Error);
+                                errorNameText.text = response.Error;
                                 return;
                             }
-                            PlayerPrefs.SetString("pname", response.name);
-                            // End this session
-                            LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
-                            LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
+                            errorNameText.text = "";
+                        // Start session
+                        LootLockerSDKManager.StartWhiteLabelSession((response) =>
                             {
                                 if (!response.success)
                                 {
                                     Error(response.Error);
+                                    errorNameText.text = response.Error;
                                     return;
                                 }
-                                Debug.Log("Account Created");
-                               
-                                newUserButtonAnimator.SetTrigger("AccountCreated");
-                                backButtonAnimator.SetTrigger("Show");
-                                Player_iD=response.player_id;
-                                
-                                // New user, turn off remember me
-                                rememberMeToggle.isOn = false;
+                                errorNameText.text = "";
+                            // Set nickname to be public UID if nothing was provided
+                            if (newNickName == "")
+                                {
+                                    newNickName = response.public_uid;
+                                }
+                            // Set new nickname for player
+                            LootLockerSDKManager.SetPlayerName(newNickName, (response) =>
+                                {
+
+                                    if (!response.success)
+                                    {
+                                        Error(response.Error);
+                                        errorNameText.text = response.Error;
+                                        return;
+                                    }
+                                    errorNameText.text = "";
+                                    PlayerPrefs.SetString("pname", response.name);
+                                // End this session
+                                LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
+                                    LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
+                                    {
+                                        if (!response.success)
+                                        {
+                                            Error(response.Error);
+                                            errorNameText.text = response.Error;
+                                            return;
+                                        }
+                                        Debug.Log("Account Created");
+                                        errorNameText.text = "";
+
+                                      
+                                        PlayerPrefs.SetInt("pid", response.player_id);
+                                        NewUserScreen.SetActive(false);
+                                        AutoLogin();
+                                    // New user, turn off remember me
+                                    rememberMeToggle.isOn = false;
+                                    });
+                                });
                             });
                         });
-                    });
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     // Start is called before the first frame update
     public void Start()
     {
+        NewUserScreen.SetActive(false);
+        LoginUserScreen.SetActive(false);
+        StartScreen.SetActive(true);
         // See if we should log in the player automatically
         rememberMe = PlayerPrefs.GetInt("rememberMe", 0);
         if (rememberMe == 0)
@@ -222,14 +269,7 @@ public class WhiteLabelManager : MonoBehaviour
         rememberMe = Convert.ToInt32(rememberMeBool);
 
         // Animate button
-        if (rememberMeBool == true)
-        {
-            rememberMeAnimator.SetTrigger("On");
-        }
-        else
-        {
-            rememberMeAnimator.SetTrigger("Off");
-        }
+      
         PlayerPrefs.SetInt("rememberMe", rememberMe);
     }
 
@@ -239,26 +279,16 @@ public class WhiteLabelManager : MonoBehaviour
         if (Convert.ToBoolean(rememberMe) == true)
         {
             // Hide the buttons on the login screen
-            existingUserEmailInputField.GetComponent<Animator>().ResetTrigger("Show");
-            existingUserEmailInputField.GetComponent<Animator>().SetTrigger("Hide");
-            existingUserEmailInputField.GetComponent<Animator>().ResetTrigger("Show");
-            existingUserPasswordInputField.GetComponent<Animator>().SetTrigger("Hide");
-            loginBackButtonAnimator.ResetTrigger("Show");
-            loginBackButtonAnimator.SetTrigger("Hide");
+           
 
-            // Start to spin the login button
-            loginButtonAnimator.ResetTrigger("Hide");
-            loginButtonAnimator.SetTrigger("Show");
-            loginButtonAnimator.SetTrigger("Login");
-
+          
             LootLockerSDKManager.CheckWhiteLabelSession(response =>
             {
                 if (response == false)
                 {
                     // Session was not valid, show error animation
                     // and show back button
-                    loginButtonAnimator.SetTrigger("Error");
-                    backButtonAnimator.SetTrigger("Show");
+                 
 
                     // set the remember me bool to false here, so that the next time the player press login
                     // they will get to the login screen
@@ -272,43 +302,21 @@ public class WhiteLabelManager : MonoBehaviour
                         if (response.success)
                         {
                             // It was succeful, log in
-                            loginButtonAnimator.SetTrigger("LoggedIn");
-                            backButtonAnimator.SetTrigger("Show");
-                            Player_iD=response.player_id;
-                            // Write the current players name to the screen
 
-                             //bool done = false;
-           // string playerID=Player.Prefs.GetString("PlayerID");
-            // string playerID="3544559";
-            // LootLockerSDKManager.SubmitScore(Player_iD.ToString(),200000,12117,(response)=>
-            // {
-            //     if(response.success)
-            //    { Debug.Log("Succesfuly uploaded score");
-            //     //done=true;
-                
-            //    }
-            //     else{
-            //     Debug.Log("Failed uploaded score"+response.Error);
-            //    // done=true;
-            //    }
-            // }
-           
-            // );
-             SetPlayerNameToGameScreen();
+                            PlayerPrefs.SetInt("pid", response.player_id);
+
+                            SetPlayerNameToGameScreen();
 
 
                            
                         }
                         else
                         {
-                            // Error
-                            // Animate the buttons
-                            loginButtonAnimator.SetTrigger("Error");
-                            backButtonAnimator.SetTrigger("Show");
+                            
+                          
 
                             Debug.Log("error starting LootLocker session");
-                            // set the remember me bool to false here, so that the next time the player press login
-                            // they will get to the login screen
+                         
                             rememberMeToggle.isOn = false;
 
                             return;
@@ -322,8 +330,9 @@ public class WhiteLabelManager : MonoBehaviour
         }
         else if(Convert.ToBoolean(rememberMe) == false)
         {
-            // Continue as usual
-            loginCanvasAnimator.CallAppearOnAllAnimators();
+            LoginUserScreen.SetActive(true);
+            StartScreen.SetActive(false);
+           
         }
     }
 
