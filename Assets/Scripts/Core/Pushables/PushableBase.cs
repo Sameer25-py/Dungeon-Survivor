@@ -17,19 +17,19 @@ namespace DungeonSurvivor.Core.Pushables
 
         private bool      _isMoving;
         private Coroutine _pushCoroutine;
-        
+
         protected virtual bool CheckNextIndexInDirectionMoveable(Vector2Int currentIndex, Vector2Int direction, PushableType
             passThroughPushable)
         {
             Vector2Int nextIndexIndirection = currentIndex + direction;
             Block      block                = GridManager.Instance.GetBlock(nextIndexIndirection);
-            if (!block) return false;
+            if (!block || block.type is BlockType.Wall) return false;
             Tuple<bool, PushableBase> checkForPushable =
                 GridManager.Instance.CheckForPushable(nextIndexIndirection);
             if (checkForPushable.Item1)
             {
                 if (passThroughPushable != PushableType.None && checkForPushable.Item2.PushableType == passThroughPushable)
-                {   
+                {
                     checkForPushable.Item2.OnPushablePassedThrough();
                     return true;
                 }
@@ -56,10 +56,11 @@ namespace DungeonSurvivor.Core.Pushables
                     yield break;
                 }
 
-                if (CheckNextIndexInDirectionMoveable(CurrentIndex, direction,PassThroughPushableType))
+                if (CheckNextIndexInDirectionMoveable(CurrentIndex, direction, PassThroughPushableType))
                 {
+                    Block blk = GridManager.Instance.GetBlock(CurrentIndex + direction);
+                    if (!blk || blk.type is BlockType.Wall) yield break;
                     totalBlocksMoved += 1;
-                    Block   blk            = GridManager.Instance.GetBlock(CurrentIndex + direction);
                     Vector3 targetPosition = blk.transform.position;
                     targetPosition.y = 0.8f;
                     CurrentIndex     = blk.index;

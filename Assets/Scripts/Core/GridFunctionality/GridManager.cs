@@ -43,14 +43,18 @@ namespace DungeonSurvivor.Core.GridFunctionality
 
         public Block GetBlock(Vector2Int index)
         {
-            return GameManager.Instance.IsValidGridIndex(index)
-                ? GetBlockByIndex(index)
-                : null;
+            return GetBlockByIndex(index);
         }
         
         private void OnPushableDestroyed(PushableBase arg0)
         {
             pushables.Remove(arg0);
+        }
+        
+        private void OnChangeBlockTypeCalled(Vector2Int arg0, BlockType arg1)
+        {
+            GetBlockByIndex(arg0)
+                .type = arg1;
         }
         
         private void Start()
@@ -63,11 +67,13 @@ namespace DungeonSurvivor.Core.GridFunctionality
         private void OnEnable()
         {
             PushableDestroyed.AddListener(OnPushableDestroyed);
+            ChangeBlockType.AddListener(OnChangeBlockTypeCalled);
         }
 
         private void OnDisable()
         {
             PushableDestroyed.RemoveListener(OnPushableDestroyed);
+            ChangeBlockType.RemoveListener(OnChangeBlockTypeCalled);
         }
     }
 }
