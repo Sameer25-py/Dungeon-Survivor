@@ -26,7 +26,7 @@ namespace DungeonSurvivor.Core.GridFunctionality
             return currentLevelBlocks.FirstOrDefault(blk => blk.index.x == index.x && blk.index.y == index.y);
         }
 
-        public Tuple<bool, PushableBase> IsIndexCollideWithPushable(Vector2Int index)
+        public Tuple<bool, PushableBase> CheckForPushable(Vector2Int index)
         {
             Tuple<bool, PushableBase> detectedPushable = new Tuple<bool, PushableBase>(false, null);
             foreach (PushableBase pushable in pushables)
@@ -47,12 +47,27 @@ namespace DungeonSurvivor.Core.GridFunctionality
                 ? GetBlockByIndex(index)
                 : null;
         }
-
+        
+        private void OnPushableDestroyed(PushableBase arg0)
+        {
+            pushables.Remove(arg0);
+        }
+        
         private void Start()
         {
             GetCurrentLevelBlocks();
             pushables = FindObjectsByType<PushableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
                 .ToList();
+        }
+
+        private void OnEnable()
+        {
+            PushableDestroyed.AddListener(OnPushableDestroyed);
+        }
+
+        private void OnDisable()
+        {
+            PushableDestroyed.RemoveListener(OnPushableDestroyed);
         }
     }
 }
