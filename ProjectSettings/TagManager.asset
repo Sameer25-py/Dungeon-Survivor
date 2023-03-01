@@ -6,6 +6,7 @@ TagManager:
   tags:
   - gem
   - Box
+  - Pushable
   layers:
   - Default
   - TransparentFX
