@@ -28,5 +28,10 @@ namespace DungeonSurvivor.Core.Events
                 public static readonly UnityEvent<int> MatchItemClicked = new();
             }
         }
+
+        public static class Timer
+        {
+            public static UnityEvent<float> CountDownTimePassed = new();
+        }
     }
 }
