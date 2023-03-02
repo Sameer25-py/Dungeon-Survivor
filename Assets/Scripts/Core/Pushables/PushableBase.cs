@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DungeonSurvivor.Controllers.Animations.Objects;
 using DungeonSurvivor.Core.GridFunctionality;
 using DungeonSurvivor.Core.Player;
 using static DungeonSurvivor.Core.Events.Internal;
@@ -109,7 +110,20 @@ namespace DungeonSurvivor.Core.Pushables
             IsMoving = true;
             LeanTween.move(gameObject, targetPosition, MoveSpeed)
                 .setEaseLinear()
-                .setOnComplete(() => { IsMoving = false; });
+                .setOnComplete(() =>
+                {
+                    IsMoving = false;
+                    Block currentBlock = GridManager.Instance.GetBlock(CurrentIndex);
+                    if (currentBlock.type == BlockType.Water)
+                    {
+                        StopCoroutine(_pushCoroutine);
+                        ChangeBlockType?.Invoke(CurrentIndex,BlockType.Standing);
+                        LeanTween.cancel(gameObject);
+                        PushableDestroyed?.Invoke(this);
+                        gameObject.AddComponent<FloatingAnimation>();
+                        enabled = false;
+                    }
+                });
         }
 
         protected virtual void OnPushablePassedThrough()

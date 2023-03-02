@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DungeonSurvivor.Core.Managers;
-using DungeonSurvivor.Core.Player;
 using DungeonSurvivor.Core.Pushables;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.Internal;

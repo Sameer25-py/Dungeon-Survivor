@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 42013709}
   - component: {fileID: 42013713}
   - component: {fileID: 42013714}
+  - component: {fileID: 42013715}
   m_Layer: 0
   m_Name: Pushable (1)
   m_TagString: Pushable
@@ -759,7 +760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42013707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0.8, z: 5}
+  m_LocalPosition: {x: 9, y: 0.8, z: 8}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -799,13 +800,30 @@ MonoBehaviour:
   PushFactor: -1
   MoveSpeed: 0.2
   PassThroughPushableType: 1
+--- !u!114 &42013715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42013707}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49d94a89442436b9a72ce6b21fe3328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DrownTime: 0.1
+  ShakeSpeed: 10
+  ShakeAmount: 0.1
+  ShakeDuration: 0.5
+  DrownPositionY: 0.1
 --- !u!1 &47244560 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5374998493773253622, guid: 14389bea7fb759f4488f497128d0063c,
     type: 3}
   m_PrefabInstance: {fileID: 767224212099965790}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &47244567
+--- !u!114 &47244561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -814,7 +832,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 47244560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409175990bb905f4da78d680b8b8d90b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d33d5daee2890b4eaa5b0dac190358a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gate: {fileID: 363310139}
@@ -11418,7 +11436,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913517630}
-  m_LocalRotation: {x: 0.41973302, y: -0.000000015617328, z: 0.0000000072220847, w: 0.90764767}
+  m_LocalRotation: {x: 0.41973302, y: 0.000000015617333, z: -0.0000000072220865, w: 0.90764767}
   m_LocalPosition: {x: 11, y: 11.5, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22053,7 +22071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778665671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11, y: 0.8, z: 5}
+  m_LocalPosition: {x: 9, y: 0.8, z: 5}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26376,7 +26394,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145594012}
-  m_LocalRotation: {x: 0.41973302, y: -0.000000015617328, z: 0.0000000072220847, w: 0.90764767}
+  m_LocalRotation: {x: 0.41973302, y: 0.000000015617333, z: -0.0000000072220865, w: 0.90764767}
   m_LocalPosition: {x: 11, y: 11.5, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -26523,6 +26541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CircleSwitch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068446751291728122, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5068446751291728123, guid: 14389bea7fb759f4488f497128d0063c,
         type: 3}
