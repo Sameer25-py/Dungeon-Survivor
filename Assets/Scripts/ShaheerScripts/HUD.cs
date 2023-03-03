@@ -1,31 +1,40 @@
-
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static DungeonSurvivor.Core.Events.GameplayEvents.Inventory;
 
-    public class HUD : MonoBehaviour
+
+public class HUD : MonoBehaviour
+{
+    private int       i = 0;
+
+    private void OnItemAdded(IInventoryItem item)
     {
-      private int i =0;
-      public Inventory Inventory;
-      void Start(){
-        Inventory.ItemAdded += InventoryScript_ItemAdded;
-      }
-      private void InventoryScript_ItemAdded(object sender,InventoryEventArgs e){
         Transform inventoryPanel = transform.Find("Inventory");
         foreach (Transform slot in inventoryPanel)
         {
-             Image image = slot.GetChild(0).GetChild(0).GetComponent<Image>();
-            if(image.enabled==false){
-              print("getting in slot");
-              image.enabled=true;
-               image.sprite = e.Item.Image;
-               print(i);
-               i=i+1;
-               break;
+            Image image = slot.GetChild(0)
+                .GetChild(0)
+                .GetComponent<Image>();
+            if (image.enabled == false)
+            {
+                print("getting in slot");
+                image.enabled = true;
+                image.sprite  = item.Image;
+                print(i);
+                i = i + 1;
+                break;
             }
-            
         }
-      }
     }
 
+    private void OnEnable()
+    {
+        ItemAdded.AddListener(OnItemAdded);
+    }
+
+    private void OnDisable()
+    {
+        ItemAdded.RemoveListener(OnItemAdded);
+    }
+}
