@@ -10,7 +10,7 @@ namespace DungeonSurvivor.Core.Player.Movement
         #region Variables
 
         public NavMeshAgent Agent { get; private set; }
-         public Inventory inventory;
+         public Inventoryold inventory;
          public Image uibox;
         [SerializeField] private NavMeshAgent agent;
 

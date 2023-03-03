@@ -24,6 +24,8 @@ namespace DungeonSurvivor.Core.Pickables
         {
             if (ID == id)
             {
+                GetComponent<Collider>()
+                    .enabled = false;
                 Destroy(gameObject);
             }
         }

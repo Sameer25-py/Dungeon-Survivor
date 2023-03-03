@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Inventory;
 
-public class Inventory : MonoBehaviour
+public class Inventoryold : MonoBehaviour
 {
     private const int                  _slots = 3;
     private       List<IInventoryItem> mItems = new List<IInventoryItem>();
