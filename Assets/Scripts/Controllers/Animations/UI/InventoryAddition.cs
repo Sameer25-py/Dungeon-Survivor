@@ -15,7 +15,7 @@ namespace DungeonSurvivor.Controllers.Animations.UI
 
         public void AnimateFail()
         {
-            LeanTween.moveLocal(gameObject, Vector3.one * Random.Range(-10, 10), 0.25f)
+            LeanTween.moveLocal(gameObject, Vector3.one * Random.Range(-1f, 1f) * 10f, 0.25f)
                 .setEaseShake().setLoopCount(2);
         }
         

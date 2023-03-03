@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ef7344b-7a53-48f2-95c3-dd75b0a447e1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Dungeon-Survivor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Dungeon-Survivor/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Sameer/Level1_Cinemachine.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Sameer/Level1_Cinemachine.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/Animations/UI/InventoryAddition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Animations/UI/InventoryAddition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/GridFunctionality/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/GridFunctionality/GridManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Pushables/PushableBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/Inventory/InventoryUIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/Inventory/InventoryUIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Player/InventoryFunctionality/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Player/InventoryFunctionality/Inventory.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677659429154</updated>
       <workItem from="1677659432779" duration="9647000" />
-      <workItem from="1677866898152" duration="5022000" />
+      <workItem from="1677866898152" duration="5496000" />
     </task>
     <servers />
   </component>

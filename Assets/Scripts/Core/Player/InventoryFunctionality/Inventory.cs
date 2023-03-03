@@ -23,6 +23,10 @@ namespace DungeonSurvivor.Core.Player.InventoryFunctionality
                 UpdateInventoryUI?.Invoke(pickableData.UISprite);
                 ItemAddedSuccessfully?.Invoke(id);
             }
+            else
+            {
+                AddItemFailed?.Invoke();
+            }
         }
 
         private void OnEnable()
