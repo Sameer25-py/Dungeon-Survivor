@@ -42,6 +42,11 @@ namespace DungeonSurvivor.Core.GridFunctionality
             return detectedPushable;
         }
 
+        public bool CheckForPickable(Vector2Int index)
+        {
+            return pickables.Any(pickable => pickable.CurrentIndex == index);
+        }
+
         public Block GetBlock(Vector2Int index)
         {
             return GetBlockByIndex(index);

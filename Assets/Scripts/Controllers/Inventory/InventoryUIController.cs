@@ -19,7 +19,7 @@ namespace DungeonSurvivor.Controllers.Inventory
 
             inventoryItems[_currentIndex]
                 .gameObject.GetComponent<InventoryAddition>()
-                .Animate();
+                .AnimateAdd();
 
             _currentIndex++;
         }
