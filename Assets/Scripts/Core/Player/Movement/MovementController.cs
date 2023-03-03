@@ -9,31 +9,13 @@ namespace DungeonSurvivor.Core.Player.Movement
     {
         #region Variables
 
-        public NavMeshAgent Agent { get; private set; }
-         public Inventory inventory;
-         public Image uibox;
+        public                   NavMeshAgent Agent { get; private set; }
+        public                   Image        uibox;
         [SerializeField] private NavMeshAgent agent;
 
         #endregion
 
         #region EventListeners
-        private  void OnCollisionEnter(Collision other)
-        {
-            IInventoryItem item=other.gameObject.GetComponent<IInventoryItem>();
-            if(item !=null)
-            {
-                print(" item collider");
-                inventory.AddItem(item);
-            }
-            if(other.gameObject.tag=="gem"){
-                print("got you");
-               // uibox.GetComponent<enabled>=true;
-               uibox.sprite=other.gameObject.GetComponent<Image>().sprite;
-               other.gameObject.SetActive(false);
-
-            }
-
-        }
         private void OnMoveToPositionCalled(Vector3 targetPos)
         {
             if (Agent is not null)

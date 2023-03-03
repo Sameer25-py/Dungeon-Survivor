@@ -25,7 +25,6 @@ namespace DungeonSurvivor.Controllers.Countdown
             string        countDownString = $"{countDownTimer.Minutes:00} : {countDownTimer.Seconds:00}";
             levelEndCountDownText.text = countDownString;
 
-            //TODO: Insert logic to broadcast progress
             foreach (TimerEvents timerEvent in TimerEvents.Where(timerEvent =>
                          countDownTimer.CountDownProgress >= timerEvent.TriggerThreshold && !timerEvent.IsTriggeredOnce))
             {

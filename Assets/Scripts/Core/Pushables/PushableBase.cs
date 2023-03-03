@@ -24,7 +24,8 @@ namespace DungeonSurvivor.Core.Pushables
         {
             Vector2Int nextIndexIndirection = currentIndex + direction;
             Block      block                = GridManager.Instance.GetBlock(nextIndexIndirection);
-            if (!block || block.type is BlockType.Wall) return false;
+            if (!block || block.type is BlockType.Wall || GridManager.Instance.CheckForPickable(nextIndexIndirection))
+                return false;
             Tuple<bool, PushableBase> checkForPushable =
                 GridManager.Instance.CheckForPushable(nextIndexIndirection);
             if (checkForPushable.Item1)
@@ -68,7 +69,7 @@ namespace DungeonSurvivor.Core.Pushables
                     OnPushApplied(targetPosition, direction);
                 }
                 else
-                {   
+                {
                     StopCoroutine(_pushCoroutine);
                     yield return null;
                 }
@@ -97,7 +98,7 @@ namespace DungeonSurvivor.Core.Pushables
                 {
                     StopCoroutine(_pushCoroutine);
                 }
-                
+
                 _pushCoroutine = StartCoroutine(Push(direction));
                 return true;
             }
@@ -117,7 +118,7 @@ namespace DungeonSurvivor.Core.Pushables
                     if (currentBlock.type == BlockType.Water)
                     {
                         StopCoroutine(_pushCoroutine);
-                        ChangeBlockType?.Invoke(CurrentIndex,BlockType.Standing);
+                        ChangeBlockType?.Invoke(CurrentIndex, BlockType.Standing);
                         LeanTween.cancel(gameObject);
                         PushableDestroyed?.Invoke(this);
                         gameObject.AddComponent<FloatingAnimation>();
