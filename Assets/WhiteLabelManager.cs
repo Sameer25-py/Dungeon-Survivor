@@ -51,62 +51,78 @@ public class WhiteLabelManager : MonoBehaviour
     // Called when pressing "LOGIN" on the login-page
     public void Login()
     {
+
         LoginUserScreen.SetActive(true);
         StartScreen.SetActive(false);
         string email = existingUserEmailInputField.text;
         string password = existingUserPasswordInputField.text;
-        
-        LootLockerSDKManager.WhiteLabelLogin(email, password, Convert.ToBoolean(rememberMe), response =>
+        if (email == "" || password == "")
         {
-            if (!response.success)
-            {
-                // Error
-                // Animate the buttons
-               
-                Debug.Log("error while logging in");
-                errorNameText.text = "error while logging in";
-                return;
-            }
-            else
-            {
-                Debug.Log("Player was logged in succesfully");
-                errorNameText.text = "";
-                Debug.Log(response);
-            }
-
-            // Is the account verified?
-            if (response.VerifiedAt == null)
-            {
-                // Stop here if you want to require your players to verify their email before continuing
-            }
-
-            LootLockerSDKManager.StartWhiteLabelSession((response) =>
+            Debug.Log("empty");
+            errorNameText.text = "Please Fill All Fields";
+            return;
+        }
+        try {
+            LootLockerSDKManager.WhiteLabelLogin(email, password, Convert.ToBoolean(rememberMe), response =>
             {
                 if (!response.success)
                 {
-                    // Error
-                    // Animate the buttons
-                   
-                    Debug.Log("error starting LootLocker session");
-                    errorNameText.text = "error starting LootLocker session";
+                // Error
+                // Animate the buttons
+
+                Debug.Log("error while logging in");
+                    errorNameText.text = "error while logging in";
                     return;
                 }
                 else
                 {
+                    Debug.Log("Player was logged in succesfully");
                     errorNameText.text = "";
+                    Debug.Log(response);
+                }
+
+            // Is the account verified?
+            if (response.VerifiedAt == null)
+                {
+                // Stop here if you want to require your players to verify their email before continuing
+            }
+
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (!response.success)
+                    {
+                    // Error
+                    // Animate the buttons
+
+                    Debug.Log("error starting LootLocker session");
+                        errorNameText.text = "error starting LootLocker session";
+                        return;
+                    }
+                    else
+                    {
+                        errorNameText.text = "";
                     // Session was succesfully started;
                     // animate the buttons
-                    Player_iD =response.player_id;
-                 
-                    Debug.Log("session started successfully");
-                    Debug.Log("player id"+Player_iD);
-                    
+                    Player_iD = response.player_id;
+
+                        Debug.Log("session started successfully");
+                        Debug.Log("player id" + Player_iD);
+
                     // Write the current players name to the screen
                     SetPlayerNameToGameScreen();
-                }
+                    }
+                });
             });
-        });
-    }
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex.Message);
+            Debug.Log("error caught");
+            Start();
+            return;
+        }
+        }
+
 
     // Write the players name to the screen
     void SetPlayerNameToGameScreen()
@@ -157,18 +173,21 @@ public class WhiteLabelManager : MonoBehaviour
 
             // string country=countryInputField.text;
             // Local function for errors
-            void Error(string error)
-            {
-                Debug.Log(error);
+            //void Error(string error)
+            //{
+            //    Debug.Log(error);
+            //    return;
                
-            }
+            //}
 
             LootLockerSDKManager.WhiteLabelSignUp(email, password, (response) =>
             {
                 Debug.Log("SessionRequest");
                 if (!response.success)
                 {
-                   // Error(response.Error);
+                    Debug.Log("HI FROM ERROR IN LOGIN AFTER SIGNUP");
+
+                    // Error(response.Error);
                     errorNameText.text = response.Error;
                     return;
                 }
@@ -184,7 +203,8 @@ public class WhiteLabelManager : MonoBehaviour
                         {
                             if (!response.success)
                             {
-                                Error(response.Error);
+                                // Error(response.Error);
+                                Debug.Log(response.Error);
                                 errorNameText.text = response.Error;
                                 return;
                             }
@@ -194,7 +214,8 @@ public class WhiteLabelManager : MonoBehaviour
                             {
                                 if (!response.success)
                                 {
-                                    Error(response.Error);
+                                    //Error(response.Error);
+                                    Debug.Log(response.Error);
                                     errorNameText.text = response.Error;
                                     return;
                                 }
@@ -210,7 +231,8 @@ public class WhiteLabelManager : MonoBehaviour
 
                                     if (!response.success)
                                     {
-                                        Error(response.Error);
+                                        // Error(response.Error);
+                                        Debug.Log(response.Error);
                                         errorNameText.text = response.Error;
                                         return;
                                     }
@@ -222,7 +244,8 @@ public class WhiteLabelManager : MonoBehaviour
                                     {
                                         if (!response.success)
                                         {
-                                            Error(response.Error);
+                                            //Error(response.Error);
+                                            Debug.Log(response.Error);
                                             errorNameText.text = response.Error;
                                             return;
                                         }
@@ -247,6 +270,7 @@ public class WhiteLabelManager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
+        errorNameText.text = "";
         NewUserScreen.SetActive(false);
         LoginUserScreen.SetActive(false);
         StartScreen.SetActive(true);
