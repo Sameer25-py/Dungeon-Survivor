@@ -37,7 +37,6 @@ namespace DungeonSurvivor.Core.Events
 
         public static class Inventory
         {
-            public static readonly UnityEvent<IInventoryItem>    ItemAdded             = new();
             public static readonly UnityEvent<int, PickableData> AddItem               = new();
             public static readonly UnityEvent<int>               ItemAddedSuccessfully = new();
             public static readonly UnityEvent                    AddItemFailed         = new();

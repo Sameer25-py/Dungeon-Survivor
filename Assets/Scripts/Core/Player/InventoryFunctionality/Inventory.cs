@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Pickables;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Inventory;
-using UnityEngine;
+using static DungeonSurvivor.Core.Events.Internal;
 
 namespace DungeonSurvivor.Core.Player.InventoryFunctionality
 {
@@ -11,29 +10,29 @@ namespace DungeonSurvivor.Core.Player.InventoryFunctionality
     {
         public int                InventoryCapacity = 3;
         public List<PickableData> Pickables;
-        
+
         private void OnAddItemCalled(int id, PickableData pickableData)
         {
             if (Pickables.Count != InventoryCapacity)
             {
                 Pickables.Add(new PickableData()
                 {
-                    type =  pickableData.type,
+                    type     = pickableData.type,
                     UISprite = pickableData.UISprite
                 });
+                UpdateInventoryUI?.Invoke(pickableData.UISprite);
                 ItemAddedSuccessfully?.Invoke(id);
             }
-            
         }
+
         private void OnEnable()
         {
             AddItem.AddListener(OnAddItemCalled);
         }
-        
+
         private void OnDisable()
         {
             AddItem.RemoveListener(OnAddItemCalled);
         }
-        
     }
 }
