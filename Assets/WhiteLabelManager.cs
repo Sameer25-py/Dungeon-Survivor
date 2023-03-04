@@ -17,7 +17,7 @@ public class WhiteLabelManager : MonoBehaviour
     [Header("New User")]
     public TMP_InputField newUserEmailInputField;
     public TMP_InputField newUserPasswordInputField;
-    public TMP_InputField nickNameInputField;
+   // public TMP_InputField nickNameInputField;
     //public TMP_InputField countryInputField;
 
     [Header("Existing User")]
@@ -156,7 +156,7 @@ public class WhiteLabelManager : MonoBehaviour
         StartScreen.SetActive(false);
         string email = newUserEmailInputField.text;
         string password = newUserPasswordInputField.text;
-        string newNickName = nickNameInputField.text;
+        string newNickName = "";
 
         if (email == "" || password == "")
         {
@@ -360,34 +360,5 @@ public class WhiteLabelManager : MonoBehaviour
         }
     }
 
-    // public void PasswordReset()
-    // {
-    //     string email = resetPasswordInputField.text;
-    //     LootLockerSDKManager.WhiteLabelRequestPassword(email, (response) =>
-    //     {
-    //         if (!response.success)
-    //         {
-    //             Debug.Log("error requesting password reset");
-    //             resetPasswordButtonAnimator.SetTrigger("Error");
-    //             backButtonAnimator.SetTrigger("Show");
-    //             return;
-    //         }
-
-    //         Debug.Log("requested password reset successfully");
-    //         resetPasswordButtonAnimator.SetTrigger("Done");
-    //         backButtonAnimator.SetTrigger("Show");
-    //     });
-    // }
-
-    // public void ResendVerificationEmail()
-    // {
-    //     int playerID = 0;
-    //     LootLockerSDKManager.WhiteLabelRequestVerification(playerID, (response) =>
-    //     {
-    //         if (response.success)
-    //         {
-    //             // Email was sent!
-    //         }
-    //     });
-    // }
+   
 }

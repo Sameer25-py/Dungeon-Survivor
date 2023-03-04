@@ -35,7 +35,8 @@ namespace DungeonSurvivor
             int leaderboardKey = 12117;
             int count = 10;
             int Level = 1;
-            int Your_Score = 100;
+            int Your_Score = 1000;
+            int pid = PlayerPrefs.GetInt("pid");
             LootLockerSDKManager.StartWhiteLabelSession((response) =>
             {
                 if (!response.success)
@@ -45,6 +46,21 @@ namespace DungeonSurvivor
                 }
                 else
                 {
+                    print(pid);
+
+                    LootLockerSDKManager.SubmitScore(pid.ToString(), Your_Score, leaderboardKey, (response) =>
+                    {
+                        if (response.statusCode == 200)
+                        {
+                            Debug.Log("Successful");
+                        }
+                        else
+                        {
+                            Debug.Log("failed: " + response.Error);
+                        }
+                    });
+
+
                     LootLockerSDKManager.GetScoreList(leaderboardKey, count, 0, (response) =>
                     {
                         if (response.statusCode == 200)
