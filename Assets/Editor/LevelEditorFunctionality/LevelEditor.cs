@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using DungeonSurvivor.Core.Data;
 using DungeonSurvivor.Core.GridFunctionality;
 using DungeonSurvivor.Core.Player;
@@ -85,6 +84,10 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
             UpdateIndex(new Vector2Int(inputRow, inputCol));
             FocusPosition(new Vector3(inputRow, 0, inputCol));
         }
+        private void RemoveAndCreate(Vector2Int direction, BlockType blockType)
+        {
+            
+        }
 
         private void CreateBlock(Vector2Int direction, BlockType blockType)
         {
@@ -103,8 +106,17 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
 
             var location = new Vector3(newIndex.x, 0, newIndex.y);
 
-            if (ObjectPresent(location))
-                Debug.LogWarning($"Object might already be present at {location}");
+            var intersecting = Physics.OverlapSphere(location, 0.01f);
+            if (intersecting.Length != 0)
+            {
+                foreach (var collider in intersecting)
+                {
+                    if (!collider.TryGetComponent<Block>(out var old)) return;
+                    DestroyImmediate(old.gameObject);
+                    var locationInt = Vector3Int.RoundToInt(location);
+                    Debug.LogWarning($"Block replaced at index: {locationInt.x}, {locationInt.z}");
+                }
+            }
 
             var obj = (PrefabUtility.InstantiatePrefab(blockMap[blockType]) as GameObject)?.transform;
             obj.position = location;
@@ -120,15 +132,9 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
             UpdateIndex(newIndex);
         }
 
-        private bool ObjectPresent(Vector3 location)
-        {
-            var intersecting = Physics.OverlapSphere(location, 0.01f);
-            return intersecting.Length != 0;
-        }
-
         private void FocusPosition(Vector3 pos)
         {
-            SceneView.lastActiveSceneView.Frame(new Bounds(pos, 8f * Vector3.one), false);
+            SceneView.lastActiveSceneView.Frame(new Bounds(pos, 4f * Vector3.one), false);
         }
     }
 }

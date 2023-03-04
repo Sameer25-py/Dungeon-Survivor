@@ -14,7 +14,7 @@ namespace DungeonSurvivor.Core.Puzzles
             {
                 isSwitchPressed = false;
                 switchAnimator.ReleaseButton();
-                GateClose?.Invoke(_gate.ID);
+                GateClose?.Invoke(switchAnimator.GetColor);
             }
             else print("Gate reference not set");
         }

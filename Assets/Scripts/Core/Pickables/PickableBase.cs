@@ -53,6 +53,7 @@ namespace DungeonSurvivor.Core.Pickables
         private void Start()
         {
             ID = IDManager.AssignPickableID();
+            LeanTween.rotateAround(gameObject, Vector3.up, 360f, 5f).setLoopClamp().setEaseLinear();
         }
 
         private void OnDisable()

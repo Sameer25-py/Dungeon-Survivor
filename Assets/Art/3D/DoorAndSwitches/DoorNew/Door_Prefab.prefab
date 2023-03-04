@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b58934a8401624f8b9810eaf4508c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gemRenderer: {fileID: 149602736094155206}
+  switchAnimator: {fileID: 0}
 --- !u!1 &1806931454080447085
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +324,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db6e3d47977a937489556531bbd3e60d, type: 3}
+--- !u!23 &149602736094155206 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: db6e3d47977a937489556531bbd3e60d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1572577899426549058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1321896899599297193 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: db6e3d47977a937489556531bbd3e60d,

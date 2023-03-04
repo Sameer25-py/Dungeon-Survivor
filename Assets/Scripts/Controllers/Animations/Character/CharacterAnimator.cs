@@ -39,7 +39,7 @@ namespace DungeonSurvivor.Controllers.Animations.Character
 
             if (pushing) return push;
             if (running) return run2;
-            return dance1;
+            return idle;
         }
         
         // private int LockState(int s, float t)

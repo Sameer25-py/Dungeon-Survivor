@@ -18,8 +18,8 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent<Teleport>
                 TeleportPosition = new();
 
-            public static readonly UnityEvent<int> GateOpen  = new();
-            public static readonly UnityEvent<int> GateClose = new();
+            public static readonly UnityEvent<Color> GateOpen  = new();
+            public static readonly UnityEvent<Color> GateClose = new();
         }
 
         public static class MiniGames
