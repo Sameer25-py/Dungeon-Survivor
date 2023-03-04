@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Pickables;
+using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Inventory;
 using static DungeonSurvivor.Core.Events.Internal;
 
@@ -10,7 +11,7 @@ namespace DungeonSurvivor.Core.Player.InventoryFunctionality
     {
         public int                InventoryCapacity = 3;
         public List<PickableData> Pickables;
-
+        public Transform          PlayerBackPack;
         private void OnAddItemCalled(int id, PickableData pickableData)
         {
             if (Pickables.Count != InventoryCapacity)
