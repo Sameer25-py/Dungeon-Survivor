@@ -1,7 +1,9 @@
 using DungeonSurvivor.Controllers.Animations.Door;
+using DungeonSurvivor.Core.GridFunctionality;
 using UnityEngine;
 using DungeonSurvivor.Core.ID;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Puzzles;
+using static DungeonSurvivor.Core.Events.Internal;
 
 namespace DungeonSurvivor.Core.Puzzles
 {
@@ -14,6 +16,8 @@ namespace DungeonSurvivor.Core.Puzzles
 
         private DoorAnimator _doorAnimator;
 
+        private Vector2Int gridIndex;
+
         #endregion
 
         #region EventListeners
@@ -24,6 +28,7 @@ namespace DungeonSurvivor.Core.Puzzles
             if (IsOpened) return;
             _doorAnimator.OpenDoor();
             IsOpened = true;
+            ChangeBlockType?.Invoke(gridIndex, BlockType.Standing);
         }
 
         private void OnGateCloseCalled(int id)
@@ -32,6 +37,7 @@ namespace DungeonSurvivor.Core.Puzzles
             if (!IsOpened) return;
             _doorAnimator.CloseDoor();
             IsOpened = false;
+            ChangeBlockType?.Invoke(gridIndex, BlockType.Wall);
         }
 
         #endregion
@@ -41,6 +47,8 @@ namespace DungeonSurvivor.Core.Puzzles
         private void Start()
         {
             ID = IDManager.AssignGateID();
+            Vector3 parentPosition = transform.parent.position;
+            gridIndex = new Vector2Int((int)parentPosition.x, (int)parentPosition.z);
         }
 
         private void OnEnable()

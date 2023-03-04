@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DungeonSurvivor.Core.Timer;
 using TMPro;
 using UnityEngine;
+using static DungeonSurvivor.Core.Events.GameplayEvents.Timer;
 
 namespace DungeonSurvivor.Controllers.Countdown
 {
@@ -14,13 +17,20 @@ namespace DungeonSurvivor.Controllers.Countdown
         [SerializeField] private CountDown countDown;
         [SerializeField] private TMP_Text  levelEndCountDownText;
 
+        [SerializeField] private List<TimerEvents> TimerEvents;
+
         private void ObserveTimer()
         {
             CountDownTime countDownTimer  = countDown.GetCountDownTime;
             string        countDownString = $"{countDownTimer.Minutes:00} : {countDownTimer.Seconds:00}";
             levelEndCountDownText.text = countDownString;
 
-            //TODO: Insert logic to broadcast progress
+            foreach (TimerEvents timerEvent in TimerEvents.Where(timerEvent =>
+                         countDownTimer.CountDownProgress >= timerEvent.TriggerThreshold && !timerEvent.IsTriggeredOnce))
+            {
+                timerEvent.IsTriggeredOnce = true;
+                CountDownTimePassed?.Invoke(countDownTimer.CountDownProgress);
+            }
         }
 
         private void Start()
@@ -32,5 +42,12 @@ namespace DungeonSurvivor.Controllers.Countdown
         {
             ObserveTimer();
         }
+    }
+
+    [Serializable]
+    public class TimerEvents
+    {
+        public float TriggerThreshold;
+        public bool  IsTriggeredOnce;
     }
 }
