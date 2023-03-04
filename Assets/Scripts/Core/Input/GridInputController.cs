@@ -17,6 +17,7 @@ namespace DungeonSurvivor.Core.Input
             
             if (h_inp == 0f && v_inp == 0f) return;
 
+            print($"getting input x:{h_inp}, y:{v_inp}");
             if (Mathf.Abs(h_inp) >= Mathf.Abs(v_inp))
             {
                 MoveInDirection?.Invoke(0, h_inp > 0 ? Vector2Int.right : Vector2Int.left);
