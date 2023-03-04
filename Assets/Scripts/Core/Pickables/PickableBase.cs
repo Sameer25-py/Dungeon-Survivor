@@ -1,5 +1,6 @@
 ﻿using System;
 using DungeonSurvivor.Core.ID;
+using DungeonSurvivor.Core.Player.InventoryFunctionality;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Inventory;
 using static DungeonSurvivor.Core.Events.Internal;
@@ -26,8 +27,18 @@ namespace DungeonSurvivor.Core.Pickables
             {
                 GetComponent<Collider>()
                     .enabled = false;
-                Destroy(gameObject);
+                Animate();
             }
+        }
+
+        private void Animate()
+        {
+            float time = 0f;
+            LeanTween.scale(gameObject, Vector3.zero, 0.2f)
+                .setEaseInCirc();
+            LeanTween.move(gameObject, Inventory.Instance.PlayerBackPack, 0.2f)
+                .setEaseOutCubic()
+                .setOnComplete(() => { Destroy(gameObject); });
         }
 
         private void OnEnable()
