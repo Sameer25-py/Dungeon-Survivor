@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DungeonSurvivor.Core.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using static DungeonSurvivor.Core.Events.GameplayEvents.MiniGames.PatternMatch;
+using static DungeonSurvivor.Core.Events.GameplayEvents.MiniGames;
 
 namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 {
@@ -23,10 +24,11 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
         [SerializeField] private GameObject staticItemBox;
         [SerializeField] private GameObject scrambledItemBox;
 
-        private bool       _isSwaping;
-        private bool       _isSwapAvailable = true;
-        private GameObject _swapCandidate;
-        private LTDescr    _swapCandidateSelectTween;
+        private CanvasGroup _canvasGroup;
+        private bool        _isSwaping;
+        private bool        _isSwapAvailable = true;
+        private GameObject  _swapCandidate;
+        private LTDescr     _swapCandidateSelectTween;
 
         private List<int> GeneratePattern(int maxRange, List<int> blackList = null)
         {
@@ -124,6 +126,8 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 
                                 delay *= 2f;
                             }
+
+                            MiniGameCompleted?.Invoke();
                         });
                 });
         }
@@ -195,6 +199,16 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 
         private void OnEnable()
         {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            LeanTween.value(gameObject, 0f, 1f, 1f)
+                .setEaseLinear()
+                .setOnUpdate((float value) => { _canvasGroup.alpha = value; })
+                .setOnComplete(() =>
+                {
+                    _canvasGroup.alpha          = 1f;
+                    _canvasGroup.interactable   = true;
+                    _canvasGroup.blocksRaycasts = true;
+                });
             List<int> staticPattern    = GeneratePattern(matchItemsCount);
             List<int> scrambledPattern = GeneratePattern(matchItemsCount, staticPattern);
             staticPatternObjects.ForEach(obj => obj.transform.localScale    = Vector3.zero);
@@ -205,12 +219,19 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
             DisplayPattern(scrambledPatternObjects, scrambledPattern);
             LeanTween.color(scrambledPatternBackDrop.rectTransform, wrongPatternColor, 0.5f)
                 .setEaseLinear();
-            MatchItemClicked.AddListener(OnMatchItemClicked);
+            GameplayEvents.MiniGames.PatternMatch.MatchItemClicked.AddListener(OnMatchItemClicked);
         }
 
         private void OnDisable()
         {
-            MatchItemClicked.RemoveListener(OnMatchItemClicked);
+            GameplayEvents.MiniGames.PatternMatch.MatchItemClicked.RemoveListener(OnMatchItemClicked);
+        }
+
+        private void OnDestroy()
+        {
+            LeanTween.value(gameObject, 1f, 0f, 0.5f)
+                .setEaseOutQuart()
+                .setOnUpdate((float value) => { _canvasGroup.alpha = value; });
         }
     }
 }

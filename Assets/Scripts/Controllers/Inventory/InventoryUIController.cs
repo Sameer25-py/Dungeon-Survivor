@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using DungeonSurvivor.Controllers.Animations.UI;
 using UnityEngine;
@@ -25,12 +24,12 @@ namespace DungeonSurvivor.Controllers.Inventory
             _currentIndex++;
         }
 
-        
         private void OnAddItemFailedCalled()
         {
             foreach (Image inventoryItem in inventoryItems)
             {
-                inventoryItem.GetComponent<InventoryAddition>().AnimateFail();
+                inventoryItem.GetComponent<InventoryAddition>()
+                    .AnimateFail();
             }
         }
 
@@ -38,9 +37,7 @@ namespace DungeonSurvivor.Controllers.Inventory
         {
             UpdateInventoryUI.AddListener(OnUpdateInventoryUIcalled);
             AddItemFailed.AddListener(OnAddItemFailedCalled);
-            
         }
-        
 
         private void OnDisable()
         {

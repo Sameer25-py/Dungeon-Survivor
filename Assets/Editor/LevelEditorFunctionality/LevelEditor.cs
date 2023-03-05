@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DungeonSurvivor.Core.Data;
 using DungeonSurvivor.Core.GridFunctionality;
+using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Player;
 using UnityEditor;
 using UnityEngine;
@@ -120,7 +121,7 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
 
             var obj = (PrefabUtility.InstantiatePrefab(blockMap[blockType]) as GameObject)?.transform;
             obj.position = location;
-            obj.parent = FindObjectOfType<GameManager>()
+            obj.parent = FindObjectOfType<LevelManager>()
                 .transform.GetChild(data.currentLevel);
 
             var blk = obj.GetComponent<Block>();

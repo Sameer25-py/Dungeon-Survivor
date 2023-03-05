@@ -13,5 +13,6 @@ namespace DungeonSurvivor.Core.Events
         public static readonly UnityEvent<Vector2Int, BlockType> ChangeBlockType             = new();
         public static readonly UnityEvent<PickableBase>          PickableDestroyed           = new();
         public static readonly UnityEvent<Sprite>                UpdateInventoryUI           = new();
+        public static readonly UnityEvent                        EnableLevelEnd              = new();
     }
 }
