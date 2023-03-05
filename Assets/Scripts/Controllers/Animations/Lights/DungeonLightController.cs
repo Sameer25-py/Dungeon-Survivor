@@ -2,6 +2,7 @@
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Timer;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Light;
+using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
 
 namespace DungeonSurvivor.Controllers.Animations.Lights
 {
@@ -85,10 +86,20 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
                 DimDownDungeon(progress);
             }
         }
+        
+        private void OnSwitchToMiniGameCameraCalled()
+        {
+            foreach (Light dungeonPointLight in dungeonPointLights)
+            {
+                dungeonPointLight.intensity = defaultLightIntensity;
+            }
+        }
+
 
         private void OnEnable()
         {
             CountDownTimePassed.AddListener(OnCountDownTimePassed);
+            SwitchToMiniGameCamera.AddListener(OnSwitchToMiniGameCameraCalled);
             foreach (GameObject dungeonLightObj in GameObject.FindGameObjectsWithTag("DungeonLight"))
             {
                 Light dungeonLight = dungeonLightObj.GetComponent<Light>();
@@ -96,10 +107,11 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
                 dungeonPointLights.Add(dungeonLight);
             }
         }
-
+        
         private void OnDisable()
         {
             CountDownTimePassed.RemoveListener(OnCountDownTimePassed);
+            SwitchToMiniGameCamera.RemoveListener(OnSwitchToMiniGameCameraCalled);
         }
     }
 }

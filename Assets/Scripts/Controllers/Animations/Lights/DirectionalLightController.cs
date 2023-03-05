@@ -13,7 +13,7 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
         [SerializeField] private float defaultIntensity     = 0.7f;
         [SerializeField] private float initialDimDownFactor = 0.5f;
         [SerializeField] private float timerDimDownFactor   = 0.05f;
-        [SerializeField] private float miniGameIntensity    = 0.3f;
+        [SerializeField] private float miniGameIntensity    = 0.7f;
 
         private Light _directionalLight;
         private bool  _dimDownWithTimer;
