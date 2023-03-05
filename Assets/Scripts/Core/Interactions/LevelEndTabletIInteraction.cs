@@ -9,7 +9,7 @@ namespace DungeonSurvivor.Core.Interactions
     {
         [SerializeField] private GameObject book;
         private                  bool       _broadcastInteractionOnce;
-        private                  bool       _isInteractionAvailable = true;
+        private                  bool       _isInteractionAvailable;
 
 
         private void OnTriggerEnter(Collider other)
