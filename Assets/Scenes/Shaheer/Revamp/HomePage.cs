@@ -61,8 +61,19 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
         }
         private void OnLoginComplete(LootLockerWhiteLabelLoginResponse response)
         {
+            
             if (response.success)
             {
+                //added by shaheer
+                LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                {
+                    if (!response.success)
+                    {
+                        return;
+                    }
+
+                });
+                // till here added by shaheer
                 PlayerPrefs.SetInt(AUTOLOGIN, Convert.ToInt32(autoLogin.isOn));
                 if (autoLogin.isOn)
                 {

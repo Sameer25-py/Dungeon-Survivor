@@ -52,15 +52,62 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
                 // UIManager.Instance.SetWaitingState(false);
                 return;
             }
+            Debug.Log(nick.text.Trim());
             LootLockerSDKManager.WhiteLabelSignUp(nick.text.Trim(), pass.text.Trim(), OnSignUpComplete);
             // UIManager.Instance.SetWaitingState(false);
         }
 
         private void OnSignUpComplete(LootLockerWhiteLabelSignupResponse response)
         {
+
             if (response.success)
             {
                 UIManager.Instance.SuccessMessage(MESSAGE4);
+                //whitelabellogin shru krna hai
+                //added by shaheer
+                string email = nick.text.Trim();
+                string password = pass.text.Trim();
+                LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
+                {
+                    if (!response.success)
+                    {
+                        return;
+                    }
+                    LootLockerSDKManager.StartWhiteLabelSession((response) =>
+                    {
+                        if (!response.success)
+                        {
+
+                            return;
+                        }
+
+                       
+                        // Set new nickname for player
+                        LootLockerSDKManager.SetPlayerName(email, (response) =>
+                        {
+
+                            if (!response.success)
+                            {
+                                return;
+                            }
+                            PlayerPrefs.SetString("pname", response.name);
+                            // End this session
+                            LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
+                            LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
+                            {
+                                if (!response.success)
+                                {
+                                    return;
+                                }
+                             
+                                PlayerPrefs.SetInt("pid", response.player_id);
+                            });
+                        });
+                    });
+                });
+
+                //yahan tak added by shaheer
+
             }
             else if (response.text.Contains("already exists"))
             {
