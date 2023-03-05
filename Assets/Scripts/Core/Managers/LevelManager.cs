@@ -1,15 +1,12 @@
 using System.Linq;
-using UnityEngine;
 using DungeonSurvivor.Core.Data;
-using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.GridFunctionality;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace DungeonSurvivor.Core.Player
+namespace DungeonSurvivor.Core.Managers
 {
-    public class GameManager : Singleton<GameManager>
+    public class LevelManager : Singleton<LevelManager>
     {
         public  GameData                 data;
         private GridFunctionality.Grid[] levelGrids;
