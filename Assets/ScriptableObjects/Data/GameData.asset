@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd342d83b80866e43bc819e1a8c92137, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  currentLevel: 0
+  currentLevel: 1
   levelSizes:
+  - {x: 25, y: 25}
   - {x: 25, y: 25}
   prefabStand: {fileID: 1425654015299968027, guid: 71c2eafab36ab6942afa8411d1501115,
     type: 3}

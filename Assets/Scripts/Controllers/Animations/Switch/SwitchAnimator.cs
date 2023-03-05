@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 namespace DungeonSurvivor.Controllers.Animations.Switch
 {
@@ -16,6 +14,8 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
         private                 Renderer _pressableRenderer;
         private static readonly int      s_baseColor = Shader.PropertyToID("_BaseColor");
 
+        public Color GetColor => defaultColor;
+        
         public void PressButton()
         {
             LeanTween.moveLocal(pressable, pressedPosition, 0.5f)

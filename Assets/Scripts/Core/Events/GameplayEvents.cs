@@ -1,7 +1,7 @@
-﻿using DungeonSurvivor.Core.Puzzles;
+﻿using DungeonSurvivor.Core.Pickables;
+using DungeonSurvivor.Core.Puzzles;
 using UnityEngine;
 using UnityEngine.Events;
-using Direction = DungeonSurvivor.Core.GridFunctionality.Direction;
 
 namespace DungeonSurvivor.Core.Events
 {
@@ -9,8 +9,8 @@ namespace DungeonSurvivor.Core.Events
     {
         public static class Movement
         {
-            public static readonly UnityEvent<Vector3>   MoveToPosition  = new();
-            public static readonly UnityEvent<Direction> MoveInDirection = new();
+            public static readonly UnityEvent<Vector3>         MoveToPosition  = new();
+            public static readonly UnityEvent<int, Vector2Int> MoveInDirection = new();
         }
 
         public static class Puzzles
@@ -18,8 +18,8 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent<Teleport>
                 TeleportPosition = new();
 
-            public static readonly UnityEvent<int> GateOpen  = new();
-            public static readonly UnityEvent<int> GateClose = new();
+            public static readonly UnityEvent<Color> GateOpen  = new();
+            public static readonly UnityEvent<Color> GateClose = new();
         }
 
         public static class MiniGames
@@ -28,6 +28,18 @@ namespace DungeonSurvivor.Core.Events
             {
                 public static readonly UnityEvent<int> MatchItemClicked = new();
             }
+        }
+
+        public static class Timer
+        {
+            public static readonly UnityEvent<float> CountDownTimePassed = new();
+        }
+
+        public static class Inventory
+        {
+            public static readonly UnityEvent<int, PickableData> AddItem               = new();
+            public static readonly UnityEvent<int>               ItemAddedSuccessfully = new();
+            public static readonly UnityEvent                    AddItemFailed         = new();
         }
     }
 }

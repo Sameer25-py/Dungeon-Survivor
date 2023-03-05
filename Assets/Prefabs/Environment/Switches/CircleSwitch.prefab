@@ -25,8 +25,8 @@ Transform:
   m_GameObject: {fileID: 5068446751291728122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4745672549969251151}
   - {fileID: 4745672550135959884}
@@ -119,6 +119,32 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5068446749812618919}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &7601783315141302742
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374998493773253622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &767224212099965792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374998493773253622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d33d5daee2890b4eaa5b0dac190358a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gate: {fileID: 0}
 --- !u!114 &5068446749812618914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,23 +158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressable: {fileID: 5374998493773253622}
+  gem: {fileID: 0}
   defaultColor: {r: 1, g: 0, b: 0.77521896, a: 1}
   pressedColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
   pressedPosition: {x: 0, y: 0, z: 0}
   unPressedPosition: {x: 0, y: 0.08, z: 0}
---- !u!65 &604429704
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374998493773253622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.4357862, y: 0.28007916, z: 1.4357862}
-  m_Center: {x: -0.00000023841858, y: -0.033283, z: 0}
 --- !u!1001 &5068446749979323556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +225,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d9acfef8d4e9cde409a9830dce9fdf42,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 69b72cb42337c3b4d87fc4f79e854fb1, type: 2}
     - target: {fileID: 919132149155446097, guid: d9acfef8d4e9cde409a9830dce9fdf42,
         type: 3}
       propertyPath: m_Name

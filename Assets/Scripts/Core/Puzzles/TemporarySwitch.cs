@@ -9,12 +9,12 @@ namespace DungeonSurvivor.Core.Puzzles
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
+            if (!ValidTags.Contains(other.tag)) return;
             if (_gate && isSwitchPressed)
             {
                 isSwitchPressed = false;
                 switchAnimator.ReleaseButton();
-                GateClose?.Invoke(_gate.ID);
+                GateClose?.Invoke(switchAnimator.GetColor);
             }
             else print("Gate reference not set");
         }

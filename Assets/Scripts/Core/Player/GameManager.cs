@@ -1,7 +1,11 @@
-using DungeonSurvivor.Core.Data;
-using DungeonSurvivor.Core.GridFunctionality;
+using System.Linq;
 using UnityEngine;
+using DungeonSurvivor.Core.Data;
 using DungeonSurvivor.Core.Managers;
+using DungeonSurvivor.Core.GridFunctionality;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace DungeonSurvivor.Core.Player
 {
@@ -15,16 +19,13 @@ namespace DungeonSurvivor.Core.Player
             levelGrids = new GridFunctionality.Grid[data.levelSizes.Count];
             for (var i = 0; i < data.levelSizes.Count; i++)
             {
-                levelGrids[i] = new GridFunctionality.Grid(data.levelSizes[i]
-                    .x, data.levelSizes[i]
-                    .y);
+                levelGrids[i] = new GridFunctionality.Grid(data.levelSizes[i].x, data.levelSizes[i].y);
             }
 
             var blocks = FindObjectsByType<Block>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var block in blocks)
             {
-                levelGrids[block.level]
-                    .SetBlock(block.index, block.type);
+                levelGrids[block.level].SetBlock(block.index, block.type);
             }
 
             base.BootOrderAwake();
@@ -32,8 +33,23 @@ namespace DungeonSurvivor.Core.Player
 
         public bool IsValidGridIndex(Vector2Int index)
         {
-            return levelGrids[0]
-                .CanMove(index);
+            return levelGrids[0].CanMove(index);
         }
+
+        public Vector2Int GetGridSize()
+        {
+            return new Vector2Int(levelGrids[0]
+                .rows, levelGrids[0]
+                .cols);
+        }
+        
+        #if UNITY_EDITOR
+        [MenuItem("Dungeon Survivor/Show Block Indexes")]
+        public static void ShowIndexes()
+        {
+            FindObjectsByType<Block>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .ToList().ForEach(blk => blk.OnDrawGizmos());
+        }
+        #endif
     }
 }

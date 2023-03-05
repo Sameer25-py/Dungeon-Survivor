@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DungeonSurvivor.Controllers.Animations.Switch;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Puzzles;
@@ -6,15 +7,17 @@ using static DungeonSurvivor.Core.Events.GameplayEvents.Puzzles;
 namespace DungeonSurvivor.Core.Puzzles
 {
     public class PermanentSwitch : MonoBehaviour
-    {   
+    {
         #region Variables
 
         [SerializeField] protected Gate _gate;
-        
+
         protected SwitchAnimator switchAnimator;
 
         protected bool isSwitchPressed;
-        
+
+        protected readonly List<string> ValidTags = new() { "Player", "Pushable" };
+
         #endregion
 
         #region UnityLifeCycle
@@ -26,16 +29,17 @@ namespace DungeonSurvivor.Core.Puzzles
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
-            if (_gate && !isSwitchPressed)
+            if (!ValidTags.Contains(other.tag)) return;
+            if (_gate)
             {
+                if (isSwitchPressed) return;
                 isSwitchPressed = true;
                 switchAnimator.PressButton();
-                GateOpen?.Invoke(_gate.ID);
+                GateOpen?.Invoke(switchAnimator.GetColor);
             }
             else print("Gate reference not set");
         }
-        
+
         #endregion
     }
 }

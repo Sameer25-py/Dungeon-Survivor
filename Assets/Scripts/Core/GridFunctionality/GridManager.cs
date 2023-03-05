@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DungeonSurvivor.Core.Managers;
-using DungeonSurvivor.Core.Player;
+using DungeonSurvivor.Core.Pickables;
+using DungeonSurvivor.Core.Pushables;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.Internal;
 
@@ -10,7 +11,10 @@ namespace DungeonSurvivor.Core.GridFunctionality
 {
     public class GridManager : Singleton<GridManager>
     {
-        [SerializeField] private List<Block> currentLevelBlocks;
+        [SerializeField] private List<Block>        currentLevelBlocks;
+        [SerializeField] private List<PushableBase> pushables;
+        [SerializeField] private List<PickableBase> pickables;
+
         private void GetCurrentLevelBlocks()
         {
             currentLevelBlocks = GetComponentsInChildren<Block>()
@@ -18,58 +22,73 @@ namespace DungeonSurvivor.Core.GridFunctionality
             GridDataCollectionCompleted?.Invoke();
         }
 
-        private Block GetBlockByIndex(int row, int column)
+        private Block GetBlockByIndex(Vector2Int index)
         {
-            Block blk = new();
-            foreach (Block block in currentLevelBlocks.Where(block => block.index.x == row && block.index.y == column))
-            {
-                blk = block;
-            }
-
-            return blk;
+            return currentLevelBlocks.FirstOrDefault(blk => blk.index.x == index.x && blk.index.y == index.y);
         }
 
-        public Block GetBlock(int row, int column, Direction direction)
+        public Tuple<bool, PushableBase> CheckForPushable(Vector2Int index)
         {
-            Block      block = new();
-            Vector2Int newIndex;
-            switch (direction)
+            Tuple<bool, PushableBase> detectedPushable = new Tuple<bool, PushableBase>(false, null);
+            foreach (PushableBase pushable in pushables)
             {
-                case Direction.Up:
-                    newIndex = new Vector2Int(row, column - 1);
+                if (pushable.CurrentIndex.Equals(index))
+                {
+                    detectedPushable = new Tuple<bool, PushableBase>(true, pushable);
                     break;
-                case Direction.Down:
-                    newIndex = new Vector2Int(row, column + 1);
-                    break;
-                case Direction.Left:
-                    newIndex = new Vector2Int(row - 1, column);
-                    break;
-                case Direction.Right:
-                    newIndex = new Vector2Int(row + 1, column);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-            }
-            if (GameManager.Instance.IsValidGridIndex(newIndex))
-            {
-                block = GetBlockByIndex(newIndex.x, newIndex.y);
+                }
             }
 
-            return block;
+            return detectedPushable;
+        }
+
+        public bool CheckForPickable(Vector2Int index)
+        {
+            return pickables.Any(pickable => pickable.CurrentIndex == index);
+        }
+
+        public Block GetBlock(Vector2Int index)
+        {
+            return GetBlockByIndex(index);
+        }
+
+        private void OnPushableDestroyed(PushableBase arg0)
+        {
+            pushables.Remove(arg0);
+        }
+        
+        private void OnPickableDestroyedCalled(PickableBase arg0)
+        {
+            pickables.Remove(arg0);
+        }
+
+        private void OnChangeBlockTypeCalled(Vector2Int arg0, BlockType arg1)
+        {
+            GetBlockByIndex(arg0)
+                .type = arg1;
         }
 
         private void Start()
         {
             GetCurrentLevelBlocks();
+            pushables = FindObjectsByType<PushableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .ToList();
+            pickables = FindObjectsByType<PickableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .ToList();
         }
-    }
 
-    [Serializable]
-    public enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
+        private void OnEnable()
+        {
+            PushableDestroyed.AddListener(OnPushableDestroyed);
+            ChangeBlockType.AddListener(OnChangeBlockTypeCalled);
+            PickableDestroyed.AddListener(OnPickableDestroyedCalled);
+        }
+        
+        private void OnDisable()
+        {
+            PushableDestroyed.RemoveListener(OnPushableDestroyed);
+            ChangeBlockType.RemoveListener(OnChangeBlockTypeCalled);
+            PickableDestroyed.RemoveListener(OnPickableDestroyedCalled);
+        }
     }
 }
