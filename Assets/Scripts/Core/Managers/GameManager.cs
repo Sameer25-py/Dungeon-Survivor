@@ -29,7 +29,7 @@ namespace DungeonSurvivor.Core.Managers
             Destroy(_instanitatedMiniGame.gameObject);
             _instanitatedMiniGame = null;
 
-            SwitchToPlayerFollowCamera?.Invoke();
+            SwitchToEndLevelCamera?.Invoke();
         }
 
         private void OnSwitchToMiniGameCameraCalled()
