@@ -12,6 +12,12 @@ namespace DungeonSurvivor.Core.Player.InventoryFunctionality
         public int                InventoryCapacity = 3;
         public List<PickableData> Pickables;
         public Transform          PlayerBackPack;
+
+        public void ClearInventory()
+        {
+            Pickables = new();
+            
+        }
         private void OnAddItemCalled(int id, PickableData pickableData)
         {
             if (Pickables.Count != InventoryCapacity)
@@ -23,6 +29,10 @@ namespace DungeonSurvivor.Core.Player.InventoryFunctionality
                 });
                 UpdateInventoryUI?.Invoke(pickableData.UISprite);
                 ItemAddedSuccessfully?.Invoke(id);
+                if (Pickables.Count == InventoryCapacity)
+                {
+                    EnableLevelEnd?.Invoke();
+                }
             }
             else
             {

@@ -1,13 +1,14 @@
 ﻿using System;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
+using static DungeonSurvivor.Core.Events.Internal;
 
 namespace DungeonSurvivor.Core.Interactions
 {
     public class LevelEndTabletIInteraction : MonoBehaviour
     {
         private bool _broadcastInteractionOnce;
-        private bool _isInteractionAvailable = true;
+        private bool _isInteractionAvailable;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,6 +17,21 @@ namespace DungeonSurvivor.Core.Interactions
             if (_broadcastInteractionOnce) return;
             _broadcastInteractionOnce = true;
             SwitchToMiniGameCamera?.Invoke();
+        }
+
+        private void OnEnableLevelEndCalled()
+        {
+            _isInteractionAvailable = true;
+        }
+
+        private void OnEnable()
+        {
+            EnableLevelEnd.AddListener(OnEnableLevelEndCalled);
+        }
+
+        private void OnDisable()
+        {
+            EnableLevelEnd.RemoveListener(OnEnableLevelEndCalled);
         }
     }
 }
