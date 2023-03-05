@@ -24,10 +24,11 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
         [SerializeField] private GameObject staticItemBox;
         [SerializeField] private GameObject scrambledItemBox;
 
-        private bool       _isSwaping;
-        private bool       _isSwapAvailable = true;
-        private GameObject _swapCandidate;
-        private LTDescr    _swapCandidateSelectTween;
+        private CanvasGroup _canvasGroup;
+        private bool        _isSwaping;
+        private bool        _isSwapAvailable = true;
+        private GameObject  _swapCandidate;
+        private LTDescr     _swapCandidateSelectTween;
 
         private List<int> GeneratePattern(int maxRange, List<int> blackList = null)
         {
@@ -198,6 +199,16 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 
         private void OnEnable()
         {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            LeanTween.value(gameObject, 0f, 1f, 1f)
+                .setEaseLinear()
+                .setOnUpdate((float value) => { _canvasGroup.alpha = value; })
+                .setOnComplete(() =>
+                {
+                    _canvasGroup.alpha          = 1f;
+                    _canvasGroup.interactable   = true;
+                    _canvasGroup.blocksRaycasts = true;
+                });
             List<int> staticPattern    = GeneratePattern(matchItemsCount);
             List<int> scrambledPattern = GeneratePattern(matchItemsCount, staticPattern);
             staticPatternObjects.ForEach(obj => obj.transform.localScale    = Vector3.zero);
@@ -214,6 +225,13 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
         private void OnDisable()
         {
             GameplayEvents.MiniGames.PatternMatch.MatchItemClicked.RemoveListener(OnMatchItemClicked);
+        }
+
+        private void OnDestroy()
+        {
+            LeanTween.value(gameObject, 1f, 0f, 0.5f)
+                .setEaseOutQuart()
+                .setOnUpdate((float value) => { _canvasGroup.alpha = value; });
         }
     }
 }

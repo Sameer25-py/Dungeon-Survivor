@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 997410370172737332}
   - component: {fileID: 997410370172737335}
   - component: {fileID: 997410370172737355}
+  - component: {fileID: 6622508297038986049}
   m_Layer: 5
   m_Name: MatchMiniGame
   m_TagString: Untagged
@@ -958,6 +959,18 @@ MonoBehaviour:
   wrongPatternColor: {r: 1, g: 0, b: 0, a: 1}
   staticItemBox: {fileID: 997410369920480393}
   scrambledItemBox: {fileID: 997410369994126956}
+--- !u!225 &6622508297038986049
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997410370172737334}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &997410370187819425
 GameObject:
   m_ObjectHideFlags: 0

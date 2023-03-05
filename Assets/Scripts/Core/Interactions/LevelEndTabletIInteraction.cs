@@ -8,7 +8,7 @@ namespace DungeonSurvivor.Core.Interactions
     public class LevelEndTabletIInteraction : MonoBehaviour
     {
         private bool _broadcastInteractionOnce;
-        private bool _isInteractionAvailable = true;
+        private bool _isInteractionAvailable;
 
         private void OnTriggerEnter(Collider other)
         {
