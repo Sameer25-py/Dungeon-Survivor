@@ -2,6 +2,7 @@
 using System.Collections;
 using DungeonSurvivor.Controllers.Animations.Objects;
 using DungeonSurvivor.Core.GridFunctionality;
+using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Player;
 using static DungeonSurvivor.Core.Events.Internal;
 using UnityEngine;
@@ -90,7 +91,7 @@ namespace DungeonSurvivor.Core.Pushables
                 LeanTween.cancel(gameObject);
                 if (PushFactor == -1)
                 {
-                    Vector2Int gridSize = GameManager.Instance.GetGridSize();
+                    Vector2Int gridSize = LevelManager.Instance.GetGridSize();
                     PushFactor = Math.Max(gridSize.x, gridSize.y);
                 }
 

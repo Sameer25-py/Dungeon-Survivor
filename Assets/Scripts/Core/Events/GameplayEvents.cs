@@ -24,6 +24,8 @@ namespace DungeonSurvivor.Core.Events
 
         public static class MiniGames
         {
+            public static readonly UnityEvent MiniGameCompleted = new();
+
             public static class PatternMatch
             {
                 public static readonly UnityEvent<int> MatchItemClicked = new();
@@ -40,6 +42,12 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent<int, PickableData> AddItem               = new();
             public static readonly UnityEvent<int>               ItemAddedSuccessfully = new();
             public static readonly UnityEvent                    AddItemFailed         = new();
+        }
+
+        public static class Camera
+        {
+            public static readonly UnityEvent SwitchToMiniGameCamera     = new();
+            public static readonly UnityEvent SwitchToPlayerFollowCamera = new();
         }
     }
 }
