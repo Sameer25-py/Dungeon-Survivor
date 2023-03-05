@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DungeonSurvivor.Core.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-using static DungeonSurvivor.Core.Events.GameplayEvents.MiniGames.PatternMatch;
+using static DungeonSurvivor.Core.Events.GameplayEvents.MiniGames;
 
 namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 {
@@ -124,6 +125,8 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
 
                                 delay *= 2f;
                             }
+
+                            MiniGameCompleted?.Invoke();
                         });
                 });
         }
@@ -205,12 +208,12 @@ namespace DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch
             DisplayPattern(scrambledPatternObjects, scrambledPattern);
             LeanTween.color(scrambledPatternBackDrop.rectTransform, wrongPatternColor, 0.5f)
                 .setEaseLinear();
-            MatchItemClicked.AddListener(OnMatchItemClicked);
+            GameplayEvents.MiniGames.PatternMatch.MatchItemClicked.AddListener(OnMatchItemClicked);
         }
 
         private void OnDisable()
         {
-            MatchItemClicked.RemoveListener(OnMatchItemClicked);
+            GameplayEvents.MiniGames.PatternMatch.MatchItemClicked.RemoveListener(OnMatchItemClicked);
         }
     }
 }
