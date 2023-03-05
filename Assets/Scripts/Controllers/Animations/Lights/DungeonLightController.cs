@@ -1,32 +1,40 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Timer;
+using static DungeonSurvivor.Core.Events.GameplayEvents.Light;
 
 namespace DungeonSurvivor.Controllers.Animations.Lights
 {
     public class DungeonLightController : MonoBehaviour
     {
+        [SerializeField] private float       dungeonLitUpTimerProgress = 0.4f;
         [SerializeField] private List<Light> dungeonPointLights;
         [SerializeField] private float       defaultLightIntensity;
         [SerializeField] private float       minLightIntensity;
+
+        private bool _isDungeonLitUp;
 
         private void LightUpDungeon()
         {
             for (int i = 0; i < dungeonPointLights.Count; i++)
             {
                 int i1 = i;
-                LeanTween.value(gameObject, minLightIntensity, defaultLightIntensity, 0.5f)
-                    .setEase(LeanTweenType.easeOutElastic)
-                    .setDelay(0.1f)
+                LeanTween.value(gameObject, minLightIntensity, defaultLightIntensity, 0.25f)
+                    .setEase(LeanTweenType.easeShake)
                     .setDelay(0.5f * i)
                     .setOnUpdate(value =>
                     {
                         dungeonPointLights[i1]
                             .intensity = value;
+                    })
+                    .setOnComplete(() =>
+                    {
+                        dungeonPointLights[i1]
+                            .intensity = defaultLightIntensity;
+                        if (i1 == dungeonPointLights.Count - 1)
+                        {
+                            _isDungeonLitUp = true;
+                        }
                     });
             }
         }
@@ -66,7 +74,16 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
 
         private void OnCountDownTimePassed(float progress)
         {
-            DimDownDungeon(progress);
+            if (progress == dungeonLitUpTimerProgress && !_isDungeonLitUp)
+            {
+                DungeonLightsLitUp?.Invoke();
+                LightUpDungeon();
+            }
+
+            if (_isDungeonLitUp)
+            {
+                DimDownDungeon(progress);
+            }
         }
 
         private void OnEnable()
@@ -78,11 +95,6 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
                 dungeonLight.intensity = minLightIntensity;
                 dungeonPointLights.Add(dungeonLight);
             }
-        }
-
-        private void Start()
-        {
-            LightUpDungeon();
         }
 
         private void OnDisable()
