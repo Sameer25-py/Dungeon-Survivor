@@ -31,7 +31,7 @@ namespace DungeonSurvivor.Core.Interactions
             LeanTween.rotateAround(book, Vector3.up, 360f, 3f)
                 .setEaseOutCirc();
             LeanTween.moveLocalY(book, 3f, 3f)
-                .setEaseOutQuint();
+                .setEaseOutCirc();
         }
         
         private void OnSwitchToEndLevelCameraCalled()

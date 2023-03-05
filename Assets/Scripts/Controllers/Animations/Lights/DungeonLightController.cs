@@ -86,20 +86,36 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
                 DimDownDungeon(progress);
             }
         }
-        
-        private void OnSwitchToMiniGameCameraCalled()
-        {
-            foreach (Light dungeonPointLight in dungeonPointLights)
-            {
-                dungeonPointLight.intensity = defaultLightIntensity;
-            }
-        }
 
+        private void OnSwitchToEndLevelCameraCalled()
+        {
+            LeanTween.value(defaultLightIntensity, 0f, 0.5f)
+                .setDelay(0.25f)
+                .setEaseOutElastic()
+                .setLoopPingPong(4)
+                .setOnUpdate((float value) =>
+                {
+                    foreach (Light dungeonPointLight in dungeonPointLights)
+                    {
+                        dungeonPointLight.intensity = value;
+                    }
+                })
+                .setOnComplete(() =>
+                {
+                    foreach (Light dungeonPointLight in dungeonPointLights)
+                    {
+                        dungeonPointLight.intensity = 0f;
+                        LeanTween.value(dungeonPointLight.intensity, defaultLightIntensity, 1f)
+                            .setEaseOutExpo()
+                            .setOnUpdate((float value) => { dungeonPointLight.intensity = value; });
+                    }
+                });
+        }
 
         private void OnEnable()
         {
             CountDownTimePassed.AddListener(OnCountDownTimePassed);
-            SwitchToMiniGameCamera.AddListener(OnSwitchToMiniGameCameraCalled);
+            SwitchToEndLevelCamera.AddListener(OnSwitchToEndLevelCameraCalled);
             foreach (GameObject dungeonLightObj in GameObject.FindGameObjectsWithTag("DungeonLight"))
             {
                 Light dungeonLight = dungeonLightObj.GetComponent<Light>();
@@ -107,11 +123,11 @@ namespace DungeonSurvivor.Controllers.Animations.Lights
                 dungeonPointLights.Add(dungeonLight);
             }
         }
-        
+
         private void OnDisable()
         {
             CountDownTimePassed.RemoveListener(OnCountDownTimePassed);
-            SwitchToMiniGameCamera.RemoveListener(OnSwitchToMiniGameCameraCalled);
+            SwitchToEndLevelCamera.RemoveListener(OnSwitchToEndLevelCameraCalled);
         }
     }
 }
