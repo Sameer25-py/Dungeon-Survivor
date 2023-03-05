@@ -20,7 +20,8 @@ namespace DungeonSurvivor.Controllers.Camera
         }
 
         private void OnEnable()
-        {
+        {   
+            stateDrivenCamera.MoveToTopOfPrioritySubqueue();
             SwitchToMiniGameCamera.AddListener(OnSwitchToMiniGameCameraCalled);
             SwitchToPlayerFollowCamera.AddListener(OnSwitchToPlayerFollowCameraCalled);
         }

@@ -49,5 +49,10 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent SwitchToMiniGameCamera     = new();
             public static readonly UnityEvent SwitchToPlayerFollowCamera = new();
         }
+
+        public static class Light
+        {
+            public static readonly UnityEvent DungeonLightsLitUp = new();
+        }
     }
 }
