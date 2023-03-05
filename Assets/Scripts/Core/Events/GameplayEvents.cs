@@ -41,5 +41,10 @@ namespace DungeonSurvivor.Core.Events
             public static readonly UnityEvent<int>               ItemAddedSuccessfully = new();
             public static readonly UnityEvent                    AddItemFailed         = new();
         }
+
+        public static class Camera
+        {
+            public static readonly UnityEvent SwitchToMiniGameCamera = new();
+        }
     }
 }
