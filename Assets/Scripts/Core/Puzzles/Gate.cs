@@ -10,6 +10,9 @@ namespace DungeonSurvivor.Core.Puzzles
 {
     public class Gate : MonoBehaviour
     {
+
+        public AudioSource asource;
+
         #region Variables
         
         public Color  Color  { get; private set; }
@@ -22,6 +25,7 @@ namespace DungeonSurvivor.Core.Puzzles
 
         private Vector2Int gridIndex;
         private static readonly int baseColor = Shader.PropertyToID("_BaseColor");
+        private static readonly int emissionColor = Shader.PropertyToID("_EmissionColor");
         #endregion
 
         #region EventListeners
@@ -31,6 +35,8 @@ namespace DungeonSurvivor.Core.Puzzles
             if (color != Color) return;
             if (IsOpened) return;
             _doorAnimator.OpenDoor();
+            asource.Play();
+
             IsOpened = true;
             ChangeBlockType?.Invoke(gridIndex, BlockType.Standing);
         }
@@ -40,6 +46,7 @@ namespace DungeonSurvivor.Core.Puzzles
             if (color != Color) return;
             if (!IsOpened) return;
             _doorAnimator.CloseDoor();
+            asource.Play();
             IsOpened = false;
             ChangeBlockType?.Invoke(gridIndex, BlockType.Wall);
         }
@@ -60,6 +67,7 @@ namespace DungeonSurvivor.Core.Puzzles
             Color = switchAnimator.GetColor;
             var mpb = new MaterialPropertyBlock();
             gemRenderer.GetPropertyBlock(mpb);
+            mpb.SetColor(emissionColor, Color);
             mpb.SetColor(baseColor, Color);
             gemRenderer.SetPropertyBlock(mpb);
             GateOpen.AddListener(OnGateOpenCalled);

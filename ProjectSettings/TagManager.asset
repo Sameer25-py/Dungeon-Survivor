@@ -8,6 +8,7 @@ TagManager:
   - Box
   - Pushable
   - DungeonLight
+  - BlockParent
   layers:
   - Default
   - TransparentFX

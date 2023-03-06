@@ -13,6 +13,7 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
 
         private                 Renderer _pressableRenderer;
         private static readonly int      s_baseColor = Shader.PropertyToID("_BaseColor");
+        private static readonly int      s_emissionColor = Shader.PropertyToID("_EmissionColor");
 
         public Color GetColor => defaultColor;
         
@@ -37,6 +38,7 @@ namespace DungeonSurvivor.Controllers.Animations.Switch
             MaterialPropertyBlock mpb = new();
             _pressableRenderer.GetPropertyBlock(mpb);
             mpb.SetColor(s_baseColor, color);
+            mpb.SetColor(s_emissionColor, color);
             _pressableRenderer.SetPropertyBlock(mpb);
         }
 

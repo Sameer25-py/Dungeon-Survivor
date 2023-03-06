@@ -4,6 +4,7 @@ namespace DungeonSurvivor.Core.Pushables
 {
     public class PushableBoulder : PushableBase
     {
+        public AudioSource asource;
         protected override void OnPushApplied(Vector3 targetPosition, Vector2Int direction)
         {
             base.OnPushApplied(targetPosition, direction);
@@ -17,9 +18,19 @@ namespace DungeonSurvivor.Core.Pushables
             {
                 rotationDirectionVector.x = direction.y;
             }
-
+            asource.Play();
             LeanTween.rotateAroundLocal(gameObject, rotationDirectionVector, 360f, MoveSpeed)
-                .setEaseInCirc();
+                .setEaseInCirc().setOnComplete(() => {
+
+                    asource.Pause();
+                
+                });
+                
+            
+        }
+        private void Update()
+        {
+            
         }
     }
 }

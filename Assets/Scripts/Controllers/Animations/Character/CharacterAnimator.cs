@@ -10,6 +10,7 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         public bool pushing;
         public bool running;
 
+        public AudioSource asource;
         [SerializeField] private Animator animator;
         [SerializeField] private float    crossFadeTime;
 
@@ -51,6 +52,14 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         {
             var state = GetStateHash();
             if (state == currentState) return;
+            if (state == run2)
+            {
+                asource.Play();
+            }
+            else
+            {
+                asource.Stop();
+            }
             animator.CrossFade(state, crossFadeTime);
             currentState = state;
         }

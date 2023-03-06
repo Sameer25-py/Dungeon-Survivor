@@ -8,13 +8,13 @@ namespace DungeonSurvivor.Core.GridFunctionality
         public readonly int          cols;
         public readonly BlockType[,] blocks;
 
-        public Grid(int rows, int columns)
+        public Grid(int rows, int cols)
         {
             this.rows = rows;
-            this.cols = columns;
-
+            this.cols = cols;
+        
             blocks = new BlockType[this.rows, cols];
-
+            
             for (var i = 0; i < this.rows; i++)
             {
                 for (var j = 0; j < cols; j++)

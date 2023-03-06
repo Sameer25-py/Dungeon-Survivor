@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace DungeonSurvivor.Core.GridFunctionality
@@ -6,7 +8,6 @@ namespace DungeonSurvivor.Core.GridFunctionality
     public class Block : MonoBehaviour
     {
         public Vector2Int index;
-        public int level;
         public BlockType type;
 
         #if UNITY_EDITOR

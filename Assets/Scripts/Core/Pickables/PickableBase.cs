@@ -9,6 +9,7 @@ namespace DungeonSurvivor.Core.Pickables
 {
     public class PickableBase : MonoBehaviour
     {
+        public AudioSource asource;
         public Vector2Int   CurrentIndex;
         public PickableData PickableData;
         public int          ID;
@@ -18,6 +19,7 @@ namespace DungeonSurvivor.Core.Pickables
             if (other.CompareTag("Player"))
             {
                 AddItem?.Invoke(ID, PickableData);
+                asource.Play();
             }
         }
 
@@ -64,6 +66,7 @@ namespace DungeonSurvivor.Core.Pickables
         private void OnDestroy()
         {
             PickableDestroyed?.Invoke(this);
+            
         }
     }
 

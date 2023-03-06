@@ -25,27 +25,6 @@ namespace DungeonSurvivor.Core.Input
             {
                 MoveInDirection?.Invoke(0, v_inp > 0 ? Vector2Int.up : Vector2Int.down);
             }
-            
-            // MoveInDirection?.Invoke(0, h_inp >= v_inp
-            //         ? (h_inp > 0 ? Vector2Int.right : Vector2Int.left)
-            //         : (v_inp > 0 ? Vector2Int.up : Vector2Int.down));
-            
-        //     if (UnityEngine.Input.GetKey("up"))
-        //     {
-        //         MoveInDirection?.Invoke(0, Vector2Int.up);   
-        //     }
-        //     else if (UnityEngine.Input.GetKey("down"))
-        //     {
-        //         MoveInDirection?.Invoke(0, Vector2Int.down);  
-        //     }
-        //     else if (UnityEngine.Input.GetKey("left"))
-        //     {
-        //         MoveInDirection?.Invoke(0, Vector2Int.left);  
-        //     }
-        //     else if (UnityEngine.Input.GetKey("right"))
-        //     {
-        //         MoveInDirection?.Invoke(0, Vector2Int.right);
-        //     }
         }
     }
 }
