@@ -59,47 +59,27 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
 
         private void OnSignUpComplete(LootLockerWhiteLabelSignupResponse response)
         {
-
             if (response.success)
             {
                 UIManager.Instance.SuccessMessage(MESSAGE4);
-                //whitelabellogin shru krna hai
                 //added by shaheer
-                string email = nick.text.Trim();
-                string password = pass.text.Trim();
+                var email = nick.text.Trim();
+                var password = pass.text.Trim();
                 LootLockerSDKManager.WhiteLabelLogin(email, password, false, response =>
                 {
-                    if (!response.success)
-                    {
-                        return;
-                    }
+                    if (!response.success) return;
                     LootLockerSDKManager.StartWhiteLabelSession((response) =>
                     {
-                        if (!response.success)
-                        {
-
-                            return;
-                        }
-
-                       
+                        if (!response.success) return;
                         // Set new nickname for player
                         LootLockerSDKManager.SetPlayerName(email, (response) =>
                         {
-
-                            if (!response.success)
-                            {
-                                return;
-                            }
+                            if (!response.success) return;
                             PlayerPrefs.SetString("pname", response.name);
                             // End this session
-                            LootLockerSessionRequest sessionRequest = new LootLockerSessionRequest();
-                            LootLocker.LootLockerAPIManager.EndSession(sessionRequest, (response) =>
+                            LootLocker.LootLockerAPIManager.EndSession(new LootLockerSessionRequest(), (response) =>
                             {
-                                if (!response.success)
-                                {
-                                    return;
-                                }
-                             
+                                if (!response.success) return;
                                 PlayerPrefs.SetInt("pid", response.player_id);
                             });
                         });

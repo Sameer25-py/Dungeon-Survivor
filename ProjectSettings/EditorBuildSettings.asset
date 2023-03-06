@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Shaheer/Firebase.unity
     guid: 27470ab7550c20b4796937707cc9dd13
+  - enabled: 1
+    path: Assets/Scenes/Rafay/Lobby.unity
+    guid: e5ddf85e10020e640b6bd4e596ca8ffe
   m_configObjects: {}

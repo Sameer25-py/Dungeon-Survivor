@@ -1755,6 +1755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8715b11043cf04f9da6d2714ec815d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  message: {fileID: 1494000505}
   animator: {fileID: 1517130311238756067}
   animationChangeTime: 5
   crossFadeTime: 0.2

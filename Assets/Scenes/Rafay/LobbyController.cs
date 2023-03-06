@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,11 +7,13 @@ namespace DungeonSurvivor.Scenes.Rafay
 {
     public class LobbyController : MonoBehaviour
     {
+        [SerializeField] private TMP_Text message;
         [SerializeField] private Animator animator;
         [SerializeField] private float animationChangeTime;
         [SerializeField] private float crossFadeTime;
 
         private float timeSinceDanceStarted;
+        private const string NICK = "Nick"; 
         private static readonly List<int> dances= new()
         {
             Animator.StringToHash("DS_Char_HipHopDance1"),
@@ -24,6 +27,7 @@ namespace DungeonSurvivor.Scenes.Rafay
         private void Start()
         {
             timeSinceDanceStarted = animationChangeTime;
+            message.text = $"Welcome {PlayerPrefs.GetString(NICK)}!";
         }
 
         private void Update()

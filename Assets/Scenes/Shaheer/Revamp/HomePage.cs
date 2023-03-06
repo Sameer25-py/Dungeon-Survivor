@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using LootLocker.Requests;
+using UnityEngine.SceneManagement;
 
 namespace DungeonSurvivor.Scenes.Shaheer.Revamp
 {
@@ -67,20 +68,14 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
                 //added by shaheer
                 LootLockerSDKManager.StartWhiteLabelSession((response) =>
                 {
-                    if (!response.success)
-                    {
-                        return;
-                    }
-
+                    if (!response.success) return;
                 });
                 // till here added by shaheer
                 PlayerPrefs.SetInt(AUTOLOGIN, Convert.ToInt32(autoLogin.isOn));
-                if (autoLogin.isOn)
-                {
-                    PlayerPrefs.SetString(NICK, nick.text);
-                    PlayerPrefs.SetString(PASS, pass.text);
-                }
+                PlayerPrefs.SetString(NICK, nick.text);
+                if (autoLogin) PlayerPrefs.SetString(PASS, pass.text);
                 UIManager.Instance.SuccessMessage(MESSAGE5);
+                SceneManager.LoadScene("Lobby");
             }
             else if (response.text.Contains("wrong email/password"))
             {
