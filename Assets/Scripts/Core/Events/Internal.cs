@@ -14,5 +14,8 @@ namespace DungeonSurvivor.Core.Events
         public static readonly UnityEvent<PickableBase>          PickableDestroyed           = new();
         public static readonly UnityEvent<Sprite>                UpdateInventoryUI           = new();
         public static readonly UnityEvent                        EnableLevelEnd              = new();
+        public static readonly UnityEvent                        ShowSceneLoader             = new();
+        public static readonly UnityEvent                        HideSceneLoader             = new();
+        public static readonly UnityEvent<float>                 SceneLoaderProgress         = new();
     }
 }
