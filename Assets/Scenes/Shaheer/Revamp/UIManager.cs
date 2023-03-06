@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace DungeonSurvivor.Scenes.Shaheer.Revamp
@@ -7,31 +8,27 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
     public class UIManager : Core.Managers.Singleton<UIManager>
     {
         [SerializeField] private TMP_Text message;
-        [SerializeField] private GameObject dimmer, loading;
         [SerializeField] private float maxRotation;
         
         private GameObject messageContainer;
         private Vector3 scaleOut;
-        // private bool previousState, nextState;
+
+        public Button level1, level2, level3;
         
         protected override void BootOrderAwake()
         {
             messageContainer = message.transform.parent.gameObject;
             scaleOut = 1.2f * Vector3.one;
+            level1.onClick.AddListener(() => ClickLevel(1));
+            level2.onClick.AddListener(() => ClickLevel(2));
+            level3.onClick.AddListener(() => ClickLevel(3));
+            SuccessMessage($"Welcome {PlayerPrefs.GetString("Nick")}!");
             base.BootOrderAwake();
         }
-        // private void Update()
-        // {
-        //     if (previousState == nextState) return;
-        //     
-        //     dimmer.SetActive(nextState);
-        //     loading.SetActive(nextState);
-        //     previousState = nextState;
-        // }
-        // public void SetWaitingState(bool newState)
-        // {
-        //     nextState = newState;
-        // }
+        private void ClickLevel(int level)
+        {
+            
+        }
         public void ErrorMessage(string text)
         {
             LeanTween
