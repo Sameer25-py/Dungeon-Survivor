@@ -443,8 +443,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374087270146607732}
-  m_LocalRotation: {x: 0.41973302, y: -0.000000015617328, z: 0.0000000072220843, w: 0.90764767}
-  m_LocalPosition: {x: 12, y: 11.5, z: -5.5}
+  m_LocalRotation: {x: 0.19639674, y: 0.37985215, z: -0.08286295, w: 0.90015244}
+  m_LocalPosition: {x: 3.42, y: 6.2, z: 13.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -476,7 +476,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 45
+  field of view: 15
   orthographic: 0
   orthographic size: 15.5
   m_Depth: -1
@@ -1703,7 +1703,7 @@ PrefabInstance:
     - target: {fileID: 5755873811440619077, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5755873811440619077, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
@@ -1733,22 +1733,22 @@ PrefabInstance:
     - target: {fileID: 5755873812154245823, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92075074
+      value: 0.9207507
       objectReference: {fileID: 0}
     - target: {fileID: 5755873812154245823, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.33727822
+      value: 0.33727825
       objectReference: {fileID: 0}
     - target: {fileID: 5755873812154245823, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.18415011
+      value: 0.18415017
       objectReference: {fileID: 0}
     - target: {fileID: 5755873812154245823, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.06745564
+      value: -0.06745566
       objectReference: {fileID: 0}
     - target: {fileID: 8509501275000302849, guid: 8d590a348b1cff448adcfaaf27784f30,
         type: 3}

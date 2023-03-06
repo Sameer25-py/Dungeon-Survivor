@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd342d83b80866e43bc819e1a8c92137, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  currentLevel: 1
+  currentLevel: 2
   levelSizes:
   - {x: 25, y: 25}
   - {x: 25, y: 25}

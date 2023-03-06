@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DungeonSurvivor.Core.Data;
 using DungeonSurvivor.Core.GridFunctionality;
 using DungeonSurvivor.Core.Managers;
@@ -6,6 +7,7 @@ using DungeonSurvivor.Core.Player;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Transform = log4net.Util.Transform;
 using Vector3 = UnityEngine.Vector3;
 
 namespace DungeonSurvivor.Editor.LevelEditorFunctionality
@@ -75,19 +77,15 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
 
         private void Select()
         {
-            if (data.currentLevel >= data.levelSizes.Count) return;
+            if (data.currentLevel > data.levelSizes.Count) return;
 
-            var levelSize = data.levelSizes[data.currentLevel];
+            var levelSize = data.levelSizes[data.currentLevel - 1];
             var inputRow  = int.Parse(rowInput.value);
             var inputCol  = int.Parse(colInput.value);
             if (0 > inputRow || inputRow >= levelSize.x || 0 > inputCol || inputCol >= levelSize.y) return;
 
             UpdateIndex(new Vector2Int(inputRow, inputCol));
             FocusPosition(new Vector3(inputRow, 0, inputCol));
-        }
-        private void RemoveAndCreate(Vector2Int direction, BlockType blockType)
-        {
-            
         }
 
         private void CreateBlock(Vector2Int direction, BlockType blockType)
@@ -99,8 +97,8 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
                 { BlockType.Wall, data.prefabWall }
             };
 
-            if (data.currentLevel >= data.levelSizes.Count) return;
-            var levelSize = data.levelSizes[data.currentLevel];
+            if (data.currentLevel > data.levelSizes.Count) return;
+            var levelSize = data.levelSizes[data.currentLevel - 1];
 
             var newIndex = new Vector2Int(selectedRow, selectedCol) + direction;
             if (0 > newIndex.x || newIndex.x >= levelSize.x || 0 > newIndex.y || newIndex.y >= levelSize.y) return;
@@ -121,12 +119,10 @@ namespace DungeonSurvivor.Editor.LevelEditorFunctionality
 
             var obj = (PrefabUtility.InstantiatePrefab(blockMap[blockType]) as GameObject)?.transform;
             obj.position = location;
-            obj.parent = FindObjectOfType<LevelManager>()
-                .transform.GetChild(data.currentLevel);
-
+            obj.parent = GameObject.FindWithTag("BlockParent").transform;
+            
             var blk = obj.GetComponent<Block>();
             blk.index = newIndex;
-            blk.level = data.currentLevel;
             blk.OnDrawGizmos();
 
             FocusPosition(location);

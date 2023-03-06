@@ -1,7 +1,5 @@
-﻿using System;
-using DungeonSurvivor.Core.Events;
+﻿using UnityEngine;
 using DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch;
-using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
 using static DungeonSurvivor.Core.Events.GameplayEvents.MiniGames;
 
