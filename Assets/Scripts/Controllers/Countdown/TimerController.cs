@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DungeonSurvivor.Core.Managers;
 using DungeonSurvivor.Core.Timer;
 using TMPro;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace DungeonSurvivor.Controllers.Countdown
             if (countDownTimer.CountDownProgress >= 1f)
             {
                 CountDownEnded?.Invoke();
+                GameManager.Instance.LoadScene("Scenes/Shaheer/Revamp/Lobby");
             }
         }
 
