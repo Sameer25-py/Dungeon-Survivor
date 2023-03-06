@@ -12,7 +12,7 @@ using static DungeonSurvivor.Core.Events.Internal;
 
 namespace DungeonSurvivor.Core.Managers
 {
-    public class GameManager : SingletonDontDestroy<GameManager>
+    public class GameManager : Singleton<GameManager>
     {
         [SerializeField] private Gameplay miniGame;
 
@@ -74,12 +74,7 @@ namespace DungeonSurvivor.Core.Managers
             
             Invoke(nameof(DestroyMiniGame), 1f);
         }
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
+        
         private void OnEnable()
         {
             SwitchToMiniGameCamera.AddListener(OnSwitchToMiniGameCameraCalled);
@@ -112,7 +107,7 @@ namespace DungeonSurvivor.Core.Managers
 
         public void LoadScene(string sceneName)
         {
-            AsyncOperation sceneLoadOp = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation sceneLoadOp = SceneManager.LoadSceneAsync(sceneName);    
             sceneLoadOp.allowSceneActivation = false;
             ShowSceneLoader?.Invoke();
             SceneLoaderProgress?.Invoke(0.5f);

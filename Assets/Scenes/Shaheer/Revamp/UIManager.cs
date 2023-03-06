@@ -18,7 +18,7 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
         private Vector3 scaleOut;
 
         public Button level1, level2, level3, playButton;
-        private int selectedLevel;
+        private int selectedLevel = 1;
         
         protected override void BootOrderAwake()
         {

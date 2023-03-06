@@ -33,12 +33,7 @@ namespace DungeonSurvivor.Controllers.UI
                 .setEaseLinear()
                 .setOnUpdate(value => loaderFill.fillAmount = value);
         }
-
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        
 
         private void OnEnable()
         {
