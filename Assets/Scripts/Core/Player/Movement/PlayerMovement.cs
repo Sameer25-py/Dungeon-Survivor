@@ -9,6 +9,7 @@ namespace DungeonSurvivor.Core.Player.Movement
 {
     public class PlayerMovement : GridMovement
     {
+        
         [SerializeField] protected CharacterAnimator characterAnimator;
         private                    bool              _isInteractWithPushable;
         private                    float             _pushTime = 0.4f;
@@ -54,12 +55,16 @@ namespace DungeonSurvivor.Core.Player.Movement
             {
                 characterAnimator.running = false;
                 characterAnimator.pushing = false;
+               
             }
             else if (timeSinceInput > exitTime && characterAnimator.pushing)
             {
                 characterAnimator.pushing = true;
                 characterAnimator.running = false;
+                
             }
+          
+
         }
 
 

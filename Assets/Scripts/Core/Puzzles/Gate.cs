@@ -10,6 +10,9 @@ namespace DungeonSurvivor.Core.Puzzles
 {
     public class Gate : MonoBehaviour
     {
+
+        public AudioSource asource;
+
         #region Variables
         
         public Color  Color  { get; private set; }
@@ -32,6 +35,8 @@ namespace DungeonSurvivor.Core.Puzzles
             if (color != Color) return;
             if (IsOpened) return;
             _doorAnimator.OpenDoor();
+            asource.Play();
+
             IsOpened = true;
             ChangeBlockType?.Invoke(gridIndex, BlockType.Standing);
         }
@@ -41,6 +46,7 @@ namespace DungeonSurvivor.Core.Puzzles
             if (color != Color) return;
             if (!IsOpened) return;
             _doorAnimator.CloseDoor();
+            asource.Play();
             IsOpened = false;
             ChangeBlockType?.Invoke(gridIndex, BlockType.Wall);
         }
