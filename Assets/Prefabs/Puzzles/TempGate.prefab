@@ -95,6 +95,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1572577900878872814, guid: b07c41a77453c7843b9f18d59d01c8eb,
+        type: 3}
+      propertyPath: switchAnimator
+      value: 
+      objectReference: {fileID: 4463509182361380179}
     - target: {fileID: 1806931454080447085, guid: b07c41a77453c7843b9f18d59d01c8eb,
         type: 3}
       propertyPath: m_Name
@@ -143,6 +148,31 @@ PrefabInstance:
       propertyPath: gem
       value: 
       objectReference: {fileID: 9062367312714713295}
+    - target: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: defaultColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: defaultColor.r
+      value: 0.612092
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: pressedColor.b
+      value: 0.475
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: pressedColor.g
+      value: 0.266
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+        type: 3}
+      propertyPath: pressedColor.r
+      value: 0.39467844
+      objectReference: {fileID: 0}
     - target: {fileID: 5068446751291728122, guid: 14389bea7fb759f4488f497128d0063c,
         type: 3}
       propertyPath: m_Name
@@ -171,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 5068446751291728123, guid: 14389bea7fb759f4488f497128d0063c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5068446751291728123, guid: 14389bea7fb759f4488f497128d0063c,
         type: 3}
@@ -236,3 +266,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8910139337380221937}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4463509182361380179 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068446749812618914, guid: 14389bea7fb759f4488f497128d0063c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8910139337380221937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3544605731759396871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb892d571cec4bdf866bbd7a4a8f4e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
