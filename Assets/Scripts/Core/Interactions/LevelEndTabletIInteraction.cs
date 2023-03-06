@@ -1,5 +1,6 @@
 ﻿using System;
 using DungeonSurvivor.Core.Events;
+using DungeonSurvivor.Core.Managers;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
 using static DungeonSurvivor.Core.Events.Internal;
@@ -41,7 +42,11 @@ namespace DungeonSurvivor.Core.Interactions
                         LeanTween.value(gameObject, light1.intensity, 0f, 1f)
                             .setDelay(1.5f)
                             .setOnUpdate((float value) => { light1.intensity = value; })
-                            .setEaseInElastic();
+                            .setEaseInElastic().setOnComplete(() =>
+                            {
+                                GameManager.Instance.LoadScene("Scenes/Shaheer/Revamp/Lobby");
+                            });
+                        
                     }
                 });
         }
