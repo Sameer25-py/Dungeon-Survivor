@@ -11,6 +11,7 @@ namespace DungeonSurvivor.Core.Pushables
 {
     public class PushableBase : MonoBehaviour
     {
+        public AudioSource asource;
         public                     PushableType PushableType;
         public                     Vector2Int   CurrentIndex;
         public                     int          PushFactor = 1;
@@ -51,6 +52,7 @@ namespace DungeonSurvivor.Core.Pushables
                 if (IsMoving)
                 {
                     yield return new WaitForEndOfFrame();
+                    asource.Play();
                     continue;
                 }
 
@@ -74,6 +76,7 @@ namespace DungeonSurvivor.Core.Pushables
                     if (_pushCoroutine != null)
                     {
                         StopCoroutine(_pushCoroutine);
+                        asource.Pause();
                     }
                     yield return null;
                 }
