@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103368596489",
+    "project_id": "dungeonsurviver-21ca4",
+    "storage_bucket": "dungeonsurviver-21ca4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103368596489:android:e83bdc879c3b08695eacd8",
+        "android_client_info": {
+          "package_name": "com.UnityTechnologies.com.unity.template.urpblank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103368596489-j86j99gnuqvhvgkq8gha83fho1dqn1f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp_CEPBbG6RpltTNsZhoy5S1-IIG-LW0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103368596489-j86j99gnuqvhvgkq8gha83fho1dqn1f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
