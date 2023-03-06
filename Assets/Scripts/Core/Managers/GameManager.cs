@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using DungeonSurvivor.Analytics.Player;
 using DungeonSurvivor.Core.Events;
 using DungeonSurvivor.Core.Puzzles.MiniGames.PatternMatch;
+using LootLocker.Requests;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
@@ -42,6 +44,34 @@ namespace DungeonSurvivor.Core.Managers
 
         private void OnMiniGameCompleted()
         {
+            LootLockerSDKManager.StartWhiteLabelSession((response) =>
+            {   
+                int leaderboardKey = 12117;
+                int pid            = PlayerPrefs.GetInt("pid");
+                if (!response.success)
+                {
+                    return;
+                }
+                else
+                {
+                    print(pid);
+
+                    LootLockerSDKManager.SubmitScore(pid.ToString(), PlayerDataHandler.PlayerMoveCountPerStage, leaderboardKey, (response) =>
+                    {
+                        if (response.statusCode == 200)
+                        {
+                            Debug.Log("Successful");
+                        }
+                        else
+                        {
+                            Debug.Log("failed: " + response.Error);
+                        }
+                        
+                        PlayerDataHandler.ResetPlayerMoveCountPerStage();
+                    });
+                }
+            });
+            
             Invoke(nameof(DestroyMiniGame), 1f);
         }
 
@@ -88,6 +118,5 @@ namespace DungeonSurvivor.Core.Managers
             SceneLoaderProgress?.Invoke(0.5f);
             StartCoroutine(BroadcastSceneLoadProgress(sceneLoadOp));
         }
-        
     }
 }
