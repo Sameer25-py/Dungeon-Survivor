@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Rafay/Game.unity
     guid: 088879da4f43c194fadaf73380164aca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sameer/LoadingScreen.unity
     guid: 8077da511c859c0468401cfea6b2d1b5
   - enabled: 1
