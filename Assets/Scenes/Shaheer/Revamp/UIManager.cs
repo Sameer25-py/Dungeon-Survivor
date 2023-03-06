@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -13,7 +14,8 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
         private GameObject messageContainer;
         private Vector3 scaleOut;
 
-        public Button level1, level2, level3;
+        public Button level1, level2, level3, playButton;
+        private int selectedLevel;
         
         protected override void BootOrderAwake()
         {
@@ -22,12 +24,17 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
             level1.onClick.AddListener(() => ClickLevel(1));
             level2.onClick.AddListener(() => ClickLevel(2));
             level3.onClick.AddListener(() => ClickLevel(3));
+            playButton.onClick.AddListener(PlayScene);
             SuccessMessage($"Welcome {PlayerPrefs.GetString("Nick")}!");
             base.BootOrderAwake();
         }
-        private void ClickLevel(int level)
+        public void ClickLevel(int level)
         {
-            
+            selectedLevel = level;
+        }
+        public void PlayScene()
+        {
+            SceneManager.LoadScene($"Level{selectedLevel}");
         }
         public void ErrorMessage(string text)
         {
