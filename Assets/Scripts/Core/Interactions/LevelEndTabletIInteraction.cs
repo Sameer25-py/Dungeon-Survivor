@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonSurvivor.Core.Events;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
 using static DungeonSurvivor.Core.Events.Internal;
@@ -31,12 +32,23 @@ namespace DungeonSurvivor.Core.Interactions
             LeanTween.rotateAround(book, Vector3.up, 360f, 3f)
                 .setEaseOutCirc();
             LeanTween.moveLocalY(book, 3f, 3f)
-                .setEaseOutCirc();
+                .setEaseOutCirc()
+                .setOnComplete(() =>
+                {
+                    Light[] lights = FindObjectsOfType<Light>();
+                    foreach (Light light1 in lights)
+                    {
+                        LeanTween.value(gameObject, light1.intensity, 0f, 1f)
+                            .setDelay(1.5f)
+                            .setOnUpdate((float value) => { light1.intensity = value; })
+                            .setEaseInElastic();
+                    }
+                });
         }
-        
+
         private void OnSwitchToEndLevelCameraCalled()
         {
-            Invoke(nameof(PlayLadderUpAnimation),2f);
+            Invoke(nameof(PlayLadderUpAnimation), 2f);
         }
 
         private void OnEnable()
@@ -44,7 +56,7 @@ namespace DungeonSurvivor.Core.Interactions
             EnableLevelEnd.AddListener(OnEnableLevelEndCalled);
             SwitchToEndLevelCamera.AddListener(OnSwitchToEndLevelCameraCalled);
         }
-        
+
         private void OnDisable()
         {
             EnableLevelEnd.RemoveListener(OnEnableLevelEndCalled);
