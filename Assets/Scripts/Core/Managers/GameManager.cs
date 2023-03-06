@@ -71,10 +71,10 @@ namespace DungeonSurvivor.Core.Managers
             }
 
             yield return new WaitForSeconds(1f);
-            
+
             sceneLoadOp.allowSceneActivation = true;
             yield return new WaitUntil(() => sceneLoadOp.isDone);
-            
+
             SceneLoaderProgress?.Invoke(1f);
             yield return new WaitForSeconds(0.1f);
             HideSceneLoader?.Invoke();
@@ -87,11 +87,6 @@ namespace DungeonSurvivor.Core.Managers
             ShowSceneLoader?.Invoke();
             SceneLoaderProgress?.Invoke(0.5f);
             StartCoroutine(BroadcastSceneLoadProgress(sceneLoadOp));
-        }
-
-        private void Start()
-        {
-            LoadScene("Scenes/Sameer/LevelEnd");
         }
     }
 }
