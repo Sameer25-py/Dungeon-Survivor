@@ -35,6 +35,7 @@ namespace DungeonSurvivor.Core.Events
         public static class Timer
         {
             public static readonly UnityEvent<float> CountDownTimePassed = new();
+            public static readonly UnityEvent        CountDownEnded      = new();
         }
 
         public static class Inventory
