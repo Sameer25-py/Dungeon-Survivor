@@ -71,7 +71,10 @@ namespace DungeonSurvivor.Core.Pushables
                 }
                 else
                 {
-                    StopCoroutine(_pushCoroutine);
+                    if (_pushCoroutine != null)
+                    {
+                        StopCoroutine(_pushCoroutine);
+                    }
                     yield return null;
                 }
 
@@ -81,7 +84,7 @@ namespace DungeonSurvivor.Core.Pushables
 
         public bool ApplyPush(Vector2Int direction)
         {
-            if (CheckNextIndexInDirectionMoveable(CurrentIndex, direction, PushableType.WoodenBox))
+            if (CheckNextIndexInDirectionMoveable(CurrentIndex, direction, PassThroughPushableType))
             {
                 if (_pushCoroutine is not null)
                 {
