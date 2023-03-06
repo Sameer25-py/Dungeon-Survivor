@@ -13,7 +13,7 @@ namespace DungeonSurvivor.Controllers.Animations.Character
         private int currentState;
         private float timeUntil;
 
-        private static readonly int idle = Animator.StringToHash("DS_Char_Idle");
+        private static readonly int idle = Animator.StringToHash("DS|Char_Idle2");
         private static readonly int run = Animator.StringToHash("DS_ Char_SimpleRun");
         private static readonly int run2 = Animator.StringToHash("DS_Char_NarutoRun");
         private static readonly int push = Animator.StringToHash("DS_Char_Push");
