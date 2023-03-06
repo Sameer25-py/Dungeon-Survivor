@@ -17,7 +17,7 @@ namespace DungeonSurvivor.Core.GridFunctionality
 
         private void GetCurrentLevelBlocks()
         {
-            currentLevelBlocks = GetComponentsInChildren<Block>()
+            currentLevelBlocks = FindObjectsOfType<Block>()
                 .ToList();
             GridDataCollectionCompleted?.Invoke();
         }

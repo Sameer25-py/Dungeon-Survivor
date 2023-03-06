@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using DungeonSurvivor.Core.Timer;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
+using static DungeonSurvivor.Core.Events.GameplayEvents.Timer;
 
 namespace DungeonSurvivor.Controllers.UI
 {
@@ -28,11 +30,13 @@ namespace DungeonSurvivor.Controllers.UI
         private void OnEnable()
         {
             SwitchToMiniGameCamera.AddListener(DisableGameplayUI);
+            CountDownEnded.AddListener(DisableGameplayUI);
         }
 
         private void OnDisable()
         {
             SwitchToMiniGameCamera.RemoveListener(DisableGameplayUI);
+            CountDownEnded.RemoveListener(DisableGameplayUI);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace DungeonSurvivor.Core.Events
         public static class Timer
         {
             public static readonly UnityEvent<float> CountDownTimePassed = new();
+            public static readonly UnityEvent        CountDownEnded      = new();
         }
 
         public static class Inventory
@@ -48,6 +49,12 @@ namespace DungeonSurvivor.Core.Events
         {
             public static readonly UnityEvent SwitchToMiniGameCamera     = new();
             public static readonly UnityEvent SwitchToPlayerFollowCamera = new();
+            public static readonly UnityEvent SwitchToEndLevelCamera     = new();
+        }
+
+        public static class Light
+        {
+            public static readonly UnityEvent DungeonLightsLitUp = new();
         }
     }
 }

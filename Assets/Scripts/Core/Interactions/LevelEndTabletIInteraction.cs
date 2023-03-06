@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonSurvivor.Core.Events;
 using UnityEngine;
 using static DungeonSurvivor.Core.Events.GameplayEvents.Camera;
 using static DungeonSurvivor.Core.Events.Internal;
@@ -7,8 +8,10 @@ namespace DungeonSurvivor.Core.Interactions
 {
     public class LevelEndTabletIInteraction : MonoBehaviour
     {
-        private bool _broadcastInteractionOnce;
-        private bool _isInteractionAvailable;
+        [SerializeField] private GameObject book;
+        private                  bool       _broadcastInteractionOnce;
+        private                  bool       _isInteractionAvailable;
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -24,14 +27,40 @@ namespace DungeonSurvivor.Core.Interactions
             _isInteractionAvailable = true;
         }
 
+        private void PlayLadderUpAnimation()
+        {
+            LeanTween.rotateAround(book, Vector3.up, 360f, 3f)
+                .setEaseOutCirc();
+            LeanTween.moveLocalY(book, 3f, 3f)
+                .setEaseOutCirc()
+                .setOnComplete(() =>
+                {
+                    Light[] lights = FindObjectsOfType<Light>();
+                    foreach (Light light1 in lights)
+                    {
+                        LeanTween.value(gameObject, light1.intensity, 0f, 1f)
+                            .setDelay(1.5f)
+                            .setOnUpdate((float value) => { light1.intensity = value; })
+                            .setEaseInElastic();
+                    }
+                });
+        }
+
+        private void OnSwitchToEndLevelCameraCalled()
+        {
+            Invoke(nameof(PlayLadderUpAnimation), 2f);
+        }
+
         private void OnEnable()
         {
             EnableLevelEnd.AddListener(OnEnableLevelEndCalled);
+            SwitchToEndLevelCamera.AddListener(OnSwitchToEndLevelCameraCalled);
         }
 
         private void OnDisable()
         {
             EnableLevelEnd.RemoveListener(OnEnableLevelEndCalled);
+            SwitchToEndLevelCamera.RemoveListener(OnSwitchToEndLevelCameraCalled);
         }
     }
 }
