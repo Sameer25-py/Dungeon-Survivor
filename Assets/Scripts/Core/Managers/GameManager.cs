@@ -88,5 +88,6 @@ namespace DungeonSurvivor.Core.Managers
             SceneLoaderProgress?.Invoke(0.5f);
             StartCoroutine(BroadcastSceneLoadProgress(sceneLoadOp));
         }
+        
     }
 }

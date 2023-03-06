@@ -9,9 +9,11 @@ namespace DungeonSurvivor.Controllers.UI
     {
         [SerializeField] private CanvasGroup loaderCanvas;
         [SerializeField] private Image       loaderFill;
+        [SerializeField] private Animator    spriteAnimator;
 
         private void OnShowSceneLoaderCalled()
         {
+            spriteAnimator.enabled = true;
             LeanTween.value(gameObject, 0f, 1f, 0.25f)
                 .setEaseLinear()
                 .setOnUpdate(value => loaderCanvas.alpha = value);
@@ -21,7 +23,8 @@ namespace DungeonSurvivor.Controllers.UI
         {
             LeanTween.value(gameObject, loaderCanvas.alpha, 0f, 0.5f)
                 .setEaseLinear()
-                .setOnUpdate(value => loaderCanvas.alpha = value);
+                .setOnUpdate(value => loaderCanvas.alpha = value)
+                .setOnComplete(() => { spriteAnimator.enabled = false; });
         }
 
         private void OnSceneLoaderProgressed(float progress)
