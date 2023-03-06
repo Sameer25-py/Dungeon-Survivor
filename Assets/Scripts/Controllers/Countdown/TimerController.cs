@@ -31,6 +31,11 @@ namespace DungeonSurvivor.Controllers.Countdown
                 timerEvent.IsTriggeredOnce = true;
                 CountDownTimePassed?.Invoke(countDownTimer.CountDownProgress);
             }
+
+            if (countDownTimer.CountDownProgress >= 1f)
+            {
+                CountDownEnded?.Invoke();
+            }
         }
 
         private void Start()
