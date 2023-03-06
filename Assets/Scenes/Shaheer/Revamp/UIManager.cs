@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using DungeonSurvivor.Core.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,8 +10,9 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
 {
     public class UIManager : Core.Managers.Singleton<UIManager>
     {
-        [SerializeField] private TMP_Text message;
-        [SerializeField] private float maxRotation;
+        [SerializeField] private TMP_Text         message;
+        [SerializeField] private float            maxRotation;
+        public                   List<CanvasGroup> CanvasGroups;
         
         private GameObject messageContainer;
         private Vector3 scaleOut;
@@ -34,7 +37,15 @@ namespace DungeonSurvivor.Scenes.Shaheer.Revamp
         }
         public void PlayScene()
         {
-            SceneManager.LoadScene($"Level{selectedLevel}");
+            foreach (var canvas in CanvasGroups)
+            {
+                LeanTween.value(gameObject, 1f, 0f, 1f)
+                    .setOnUpdate((float value) =>
+                    {
+                        canvas.alpha = value;
+                    });
+            }
+            GameManager.Instance.LoadScene($"Level{selectedLevel}");
         }
         public void ErrorMessage(string text)
         {
